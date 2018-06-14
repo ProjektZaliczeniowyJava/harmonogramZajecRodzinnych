@@ -10,6 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        DataBase app = new DataBase();
+        app.connectionToDerby();
+        app.normalDbUsage();
+
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");
         primaryStage.setScene(new Scene(root, 300, 275));
