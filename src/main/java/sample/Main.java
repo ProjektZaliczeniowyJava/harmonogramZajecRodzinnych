@@ -14,7 +14,6 @@ public class Main extends Application {
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
-        //testowy komentarz - commit mastera
     }
 
 
