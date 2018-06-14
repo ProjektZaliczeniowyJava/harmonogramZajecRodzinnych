@@ -13,15 +13,13 @@ public class DataBase {
         // URL format is
         // jdbc:derby:<local directory to save data>
         // -------------------------------------------
-        String dbUrl = "jdbc:derby:dataBase;create=true";
+        String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;create=true";
         conn = DriverManager.getConnection(dbUrl);
     }
 
     public void normalDbUsage() throws SQLException {
         Statement stmt = conn.createStatement();
 
-        // drop table
-         stmt.executeUpdate("Drop Table users");
 
         // create table
         stmt.executeUpdate("Create table users (id int primary key, name varchar(30))");
@@ -37,5 +35,9 @@ public class DataBase {
         while (rs.next()) {
             System.out.printf("%d\t%s\n", rs.getInt("id"), rs.getString("name"));
         }
+
+        // drop table
+        stmt.executeUpdate("Drop Table users");
+
     }
 }
