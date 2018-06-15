@@ -51,6 +51,10 @@
          <children>
             <Label mnemonicParsing="false" text="Wtorek" GridPane.columnIndex="1" GridPane.rowIndex="0" />
          </children>
+
+          <children>
+              <Button fx:id="addButton" mnemonicParsing="false" onAction="#clickAddButton" text="DODAJ" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+          </children>
       </GridPane>
    </children>
 </GridPane>

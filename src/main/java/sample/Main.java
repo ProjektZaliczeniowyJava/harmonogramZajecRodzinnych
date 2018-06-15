@@ -1,10 +1,14 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.awt.event.ActionEvent;
 
 
 public class Main extends Application {
@@ -25,10 +29,15 @@ public class Main extends Application {
 //        dataBase.backUpDatabase();
 //        dataBase.restoreDatabase();
 
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setController(new Controller());
+        Pane root = loader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
+
+
         //test pusha brancha
         //ostatni test
     }
