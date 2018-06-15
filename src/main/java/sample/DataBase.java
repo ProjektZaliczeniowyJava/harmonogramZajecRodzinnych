@@ -1,12 +1,10 @@
 package sample;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DataBase {
-    Connection conn;
+    Connection connection;
+    private String eventNameTable = "Events";
+    private String userNameTable = "Users";
 
     public void connectionToDerby() throws SQLException {
         // -------------------------------------------
@@ -14,30 +12,50 @@ public class DataBase {
         // jdbc:derby:<local directory to save data>
         // -------------------------------------------
         String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;create=true";
-        conn = DriverManager.getConnection(dbUrl);
+        connection = DriverManager.getConnection(dbUrl);
     }
 
-    public void normalDbUsage() throws SQLException {
-        Statement stmt = conn.createStatement();
+    public void createUserTable() throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("Create table " + this.userNameTable + " (id int primary key, name varchar(30))");
 
 
-        // create table
-        stmt.executeUpdate("Create table users (id int primary key, name varchar(30))");
+    }
 
-        // insert 2 rows
-        stmt.executeUpdate("insert into users values (1,'tom')");
-        stmt.executeUpdate("insert into users values (2,'peter')");
 
-        // query
-        ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+    public void addRecordToUserTable(int id, String name) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("INSERT INTO "+ this.userNameTable + " values (" + id + ",'" + name + "')");
 
-        // print out query result
-        while (rs.next()) {
-            System.out.printf("%d\t%s\n", rs.getInt("id"), rs.getString("name"));
+
+    }
+
+    public void showDatabase() throws SQLException {
+        Statement stmt = connection.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT * FROM users");
+
+        while (result.next()) {
+            System.out.printf("%d\t%s\n", result.getInt("id"), result.getString("name"));
         }
+    }
 
-        // drop table
-        stmt.executeUpdate("Drop Table users");
+    public void backUpDatabase()throws SQLException {
+        String backUpDirectory ="mybackups/"+ "kopia";
+        CallableStatement cs = connection.prepareCall("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(?)");
+        cs.setString(1, backUpDirectory);
+        cs.execute();
+        cs.close();
+        System.out.println("backed up database to "+backUpDirectory);
+    }
 
+    public void restoreDatabase() throws SQLException {
+        String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;restoreFrom=mybackups/kopia/dataBase";
+        String shutdownURL = "jdbc:derby:src/main/resources/sample/dataBase;shutdown=true";
+        try {
+            DriverManager.getConnection(shutdownURL);
+        } catch (SQLException e) {
+//            e.printStackTrace();
+        }
+        connection = DriverManager.getConnection(dbUrl);
     }
 }
