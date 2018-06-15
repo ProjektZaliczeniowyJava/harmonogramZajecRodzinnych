@@ -6,14 +6,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        DataBase app = new DataBase();
-        app.connectionToDerby();
-        app.normalDbUsage();
-        app.backUpDatabase();
+        DataBase dataBase = new DataBase();
+        dataBase.connectionToDerby();
+        dataBase.createUserTable();
+        dataBase.addRecordToUserTable(1, "kasia");
+        dataBase.addRecordToUserTable(4, "karolina");
+        dataBase.showDatabase();
+        dataBase.backUpDatabase();
+        dataBase.addRecordToUserTable(3, "Krzysiek");
+        dataBase.showDatabase();
+        dataBase.restoreDatabase();
+        dataBase.showDatabase();
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");
