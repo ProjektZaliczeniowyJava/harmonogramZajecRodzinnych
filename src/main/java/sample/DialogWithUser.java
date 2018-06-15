@@ -1,53 +1,69 @@
 package sample;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Pair;
+
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class DialogWithUser {
-    private Optional<Pair<String, String>> result;
+    //TODO z osob, dni i godzin zrobić najlepiej Map<String, Integer>  i wtedy bedziemy przyporzadkowywac do kluczy
+    // do Event dodać klase abstracyjna ze zmienna static ktora bede liczyla wydarzenia,
+    // zeby automatycznie indeksowac i tworzyc odpowiedni numer event
+
+
+    private Optional<Event> result;
 
     public DialogWithUser() {
-        this.result = Optional.empty();
+        this.result = null;
     }
 
     public void createUserInput() {
-        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        Dialog<Event> dialog = new Dialog<>();
         dialog.setTitle("Dodaj wydarzenie ");
+        Label person = new Label("Osoba");
+        Label day = new Label("Dzien");
+        Label hour = new Label("Godzina");
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+        ObservableList<String> personList =
+                FXCollections.observableArrayList("1", "2", "3");
+        ComboBox<String> personOption = new ComboBox<>(personList);
+        personOption.getSelectionModel().selectFirst();
 
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(20, 150, 10, 10));
+        ObservableList<String> dayList =
+                FXCollections.observableArrayList("1", "2", "3");
+        ComboBox<String> dayOption = new ComboBox<>(dayList);
+        dayOption.getSelectionModel().selectFirst();
+
+        ObservableList<String> hourList =
+                FXCollections.observableArrayList("1", "2", "3");
+        ComboBox<String> hourOption = new ComboBox<>(personList);
+        hourOption.getSelectionModel().selectFirst();
 
         TextField eventInformation = new TextField();
-        eventInformation.setPromptText("Wydarzenie");
-        TextField eventHour = new TextField();
-        eventHour.setPromptText("Godzina");
+        eventInformation.setPromptText("Treść wydarzenia");
 
-        gridPane.add(new Label("Dodaj treść wydarzenia "), 0, 0);
-        gridPane.add(eventInformation, 0, 1);
-        gridPane.add(new Label("Dodaj godzine:"), 0, 2);
-        gridPane.add(eventHour, 0, 3);
-
-        dialog.getDialogPane().setContent(gridPane);
+        dialogPane.setContent(new VBox(8, person, personOption, day, dayOption, hour, hourOption, eventInformation));
         Platform.runLater(() -> eventInformation.requestFocus());
 
         dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == loginButtonType) {
-                return new Pair<>(eventInformation.getText(), eventHour.getText());
+            if (dialogButton == ButtonType.OK) {
+                return new Event(1, Integer.parseInt(personOption.getValue()),
+                        dayOption.getValue(), hourOption.getValue(), eventInformation.getText());
             }
             return null;
         });
         this.result = dialog.showAndWait();
     }
 
-    public Optional<Pair<String, String>> getInputResult() {
+    public Optional<Event> getInputResult() {
         //TODO dodać obsługe kiedy null
         return this.result;
     }

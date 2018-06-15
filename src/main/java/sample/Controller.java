@@ -14,9 +14,10 @@ public class Controller {
     public void clickAddButton(ActionEvent actionEvent) {
         DialogWithUser dialogWithUser = new DialogWithUser();
         dialogWithUser.createUserInput();
-        Optional<Pair<String, String>> result = dialogWithUser.getInputResult();
+        Optional<Event> result = dialogWithUser.getInputResult();
         result.ifPresent(pair -> {
-            System.out.println("Wydarzenie:" + pair.getKey() + ", Godzina:" + pair.getValue());
+            System.out.println("ID:" + pair.getId() + "\nID_USER:" + pair.getId_user()+
+                    "\nDAY:"+pair.getDay()+"\nHOUR:"+pair.getHour()+"\nMESSAGE:"+pair.getMessage());
         });
     }
 
