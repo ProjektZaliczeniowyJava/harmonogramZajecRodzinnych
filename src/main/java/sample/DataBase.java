@@ -1,6 +1,5 @@
 package sample;
 import java.sql.*;
-import java.time.LocalDateTime;
 
 public class DataBase {
     Connection conn;
@@ -34,16 +33,44 @@ public class DataBase {
         }
 
         // drop table
-        stmt.executeUpdate("Drop Table users");
+       // stmt.executeUpdate("Drop Table users");
 
     }
 
+    public void addRecordToDatabase() throws SQLException {
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate("INSERT INTO users values (4, 'karolina')");
+
+
+    }
+
+    public void showDatabase() throws SQLException {
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+
+        // print out query result
+        while (rs.next()) {
+            System.out.printf("%d\t%s\n", rs.getInt("id"), rs.getString("name"));
+        }
+    }
+
     public void backUpDatabase()throws SQLException {
-        String backUpDirectory ="mybackups/"+ LocalDateTime.now();
+        String backUpDirectory ="mybackups/"+ "kopia";
         CallableStatement cs = conn.prepareCall("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(?)");
         cs.setString(1, backUpDirectory);
         cs.execute();
         cs.close();
         System.out.println("backed up database to "+backUpDirectory);
+    }
+
+    public void restoreDatabase() throws SQLException {
+        String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;restoreFrom=mybackups/kopia/dataBase";
+        String nsURL1 = "jdbc:derby:src/main/resources/sample/dataBase;shutdown=true";
+        try {
+            DriverManager.getConnection(nsURL1);
+        } catch (SQLException e) {
+            ;
+        }
+        conn = DriverManager.getConnection(dbUrl);
     }
 }
