@@ -15,6 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         DataBase dataBase = new DerbyDataBase();
         dataBase.createConnectionToDerby();
         /*dataBase.createUserTable();
@@ -29,7 +30,6 @@ public class Main extends Application {
 //        dataBase.backUpDatabase();
 //        dataBase.restoreDatabase();
 
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         FXMLLoader loader = new FXMLLoader();
         loader.setController(new Controller());
         Pane root = loader.load(getClass().getResource("sample.fxml"));
