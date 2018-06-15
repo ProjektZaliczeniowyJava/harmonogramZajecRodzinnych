@@ -13,6 +13,7 @@ public class Main extends Application {
         DataBase app = new DataBase();
         app.connectionToDerby();
         app.normalDbUsage();
+        app.backUpDatabase();
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");

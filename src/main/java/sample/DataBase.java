@@ -1,9 +1,6 @@
 package sample;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDateTime;
 
 public class DataBase {
     Connection conn;
@@ -39,5 +36,14 @@ public class DataBase {
         // drop table
         stmt.executeUpdate("Drop Table users");
 
+    }
+
+    public void backUpDatabase()throws SQLException {
+        String backUpDirectory ="mybackups/"+ LocalDateTime.now();
+        CallableStatement cs = conn.prepareCall("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(?)");
+        cs.setString(1, backUpDirectory);
+        cs.execute();
+        cs.close();
+        System.out.println("backed up database to "+backUpDirectory);
     }
 }
