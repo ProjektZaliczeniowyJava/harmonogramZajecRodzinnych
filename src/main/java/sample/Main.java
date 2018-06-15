@@ -20,13 +20,13 @@ public class Main extends Application {
         dataBase.createConnectionToDerby();
         /*dataBase.createUserTable();
         dataBase.addRecordToUserTable(1, "kasia");
-        dataBase.addRecordToUserTable(4, "karolina");*/
-        dataBase.showUserTable();
+        dataBase.addRecordToUserTable(4, "karolina");
+        dataBase.showUserTable();*/
 
         /*dataBase.createEventTable();
         dataBase.addRecordToEventTable(1, 2, 3, 4, "wyniesc smieci");
-        dataBase.addRecordToEventTable(2, 2, 6, 7, "pozmywac naczynia");*/
-        dataBase.showEventTable();
+        dataBase.addRecordToEventTable(2, 2, 6, 7, "pozmywac naczynia");
+        dataBase.showEventTable();*/
 //        dataBase.backUpDatabase();
 //        dataBase.restoreDatabase();
 
