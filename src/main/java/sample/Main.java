@@ -15,17 +15,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        DataBase dataBase = new DataBase();
-        dataBase.createConnectionToDerby();
-        dataBase.createUserTable();
-        dataBase.addRecordToUserTable(1, "kasia");
-        dataBase.addRecordToUserTable(4, "karolina");
-        dataBase.showUserTable();
-
-        dataBase.createEventTable();
-        dataBase.addRecordToEventTable(1, 2, 3, 4, "wyniesc smieci");
-        dataBase.addRecordToEventTable(2, 2, 6, 7, "pozmywac naczynia");
-        dataBase.showEventTable();
+//        DataBase dataBase = new DataBase();
+//        dataBase.createConnectionToDerby();
+//        dataBase.createUserTable();
+//        dataBase.addRecordToUserTable(1, "kasia");
+//        dataBase.addRecordToUserTable(4, "karolina");
+//        dataBase.showUserTable();
+//
+//        dataBase.createEventTable();
+//        dataBase.addRecordToEventTable(1, 2, 3, 4, "wyniesc smieci");
+//        dataBase.addRecordToEventTable(2, 2, 6, 7, "pozmywac naczynia");
+//        dataBase.showEventTable();
 //        dataBase.backUpDatabase();
 //        dataBase.restoreDatabase();
 
