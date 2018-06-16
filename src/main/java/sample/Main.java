@@ -18,16 +18,16 @@ public class Main extends Application {
 
         DataBase dataBase = new DerbyDataBase();
         dataBase.createConnectionToDerby();
-        /*dataBase.createUserTable();
+        dataBase.createUserTable();
         dataBase.addRecordToUserTable(1, "kasia");
         dataBase.addRecordToUserTable(4, "karolina");
-        dataBase.showUserTable();*/
+        dataBase.showUserTable();
 
         //Tworzenie tabeli event jeszcze raz
-        //dataBase.createEventTable();
-        /*dataBase.addRecordToEventTable(1, 2, "Poniedzialek", 4, 15, "wyniesc smieci");
+        dataBase.createEventTable();
+        dataBase.addRecordToEventTable(1, 2, "Poniedzialek", 4, 15, "wyniesc smieci");
         dataBase.addRecordToEventTable(2, 2, "Wtorek", 7, 20, "pozmywac naczynia");
-        dataBase.showEventTable();*/
+        //dataBase.showEventTable();
 //        dataBase.backUpDatabase();
 //        dataBase.restoreDatabase();
 

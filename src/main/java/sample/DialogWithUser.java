@@ -59,11 +59,7 @@ public class DialogWithUser {
         ComboBox<String> minuteOption = new ComboBox<>(minuteList);
         hourOption.getSelectionModel().selectFirst();
 
-        ObservableList<String> minuteList =
-                FXCollections.observableArrayList("1", "2", "3");
-        ComboBox<String> minuteOption = new ComboBox<>(personList);
-        hourOption.getSelectionModel().selectFirst();
-        
+
         TextField eventInformation = new TextField();
         eventInformation.setPromptText("Treść wydarzenia");
 
