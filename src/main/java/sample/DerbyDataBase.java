@@ -68,7 +68,6 @@ public class DerbyDataBase implements DataBase {
 	@Override
 	public List<Event> getAllEvents() throws SQLException {
 		List<Event> list = new ArrayList<>();
-
 		Statement myStmt = null;
 		ResultSet myRs = null;
 
@@ -83,7 +82,6 @@ public class DerbyDataBase implements DataBase {
 
 			return list;
 		} finally {
-			//konczenie polaczenia z baza
 			DBUtils.close(myStmt, myRs);
 		}
 	}
@@ -104,7 +102,6 @@ public class DerbyDataBase implements DataBase {
 
 	public List<User> getAllUsers() throws SQLException {
 		List<User> list = new ArrayList<>();
-
 		Statement myStmt = null;
 		ResultSet myRs = null;
 
@@ -119,7 +116,6 @@ public class DerbyDataBase implements DataBase {
 
 			return list;
 		} finally {
-			//konczenie polaczenia z baza
 			DBUtils.close(myStmt, myRs);
 		}
 	}
@@ -141,11 +137,7 @@ public class DerbyDataBase implements DataBase {
 			myStmt = connection.prepareStatement(
 					"delete from events where id =?");
 
-			// set params
 			myStmt.setInt(1, id);
-
-
-			// execute SQL
 			myStmt.executeUpdate();
 		}
 		finally {
@@ -158,12 +150,10 @@ public class DerbyDataBase implements DataBase {
 		PreparedStatement myStmt = null;
 
 		try {
-			// prepare statement
 			myStmt = connection.prepareStatement(
 					"INSERT INTO events values (?, ?, ?, ?, ?, ?)",   
 					Statement.RETURN_GENERATED_KEYS);
 
-			// set params
 			myStmt.setInt(1, event.getId());
 			myStmt.setInt(2, event.getId_user());
 			myStmt.setString(3, event.getDay());
@@ -171,7 +161,6 @@ public class DerbyDataBase implements DataBase {
 			myStmt.setInt(5, event.getMin());
 			myStmt.setString(6, event.getMessage());
 	
-			// execute SQL
 			myStmt.executeUpdate();
 
 		} finally {
@@ -183,11 +172,9 @@ public class DerbyDataBase implements DataBase {
 		PreparedStatement myStmt = null;
 
 		try {
-			// prepare statement
 			myStmt = connection.prepareStatement(
 					"update events set id=?, id_user=?, day=?, hhour=?, mminute=?, message=?");
 
-			// set params
 			myStmt.setInt(1, event.getId());
 			myStmt.setInt(2, event.getId_user());
 			myStmt.setString(3, event.getDay());
@@ -195,7 +182,7 @@ public class DerbyDataBase implements DataBase {
 			myStmt.setInt(5, event.getMin());
 			myStmt.setString(6, event.getMessage());
 			myStmt.execute("SET NAMES 'utf8'");
-			// execute SQL
+
 			myStmt.executeUpdate();
 			
 		} finally {
