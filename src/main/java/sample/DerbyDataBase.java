@@ -2,6 +2,7 @@ package sample;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,23 +44,6 @@ public class DerbyDataBase implements DataBase {
     public void addRecordToUserTable(int id, String name) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("INSERT INTO "+ this.userNameTable + " values (" + id + ",'" + name + "')");
-    }
-
-    public void showUserTable() throws SQLException {
-        Statement stmt = connection.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT * FROM "+this.userNameTable);
-        while (result.next()) {
-            System.out.printf("%d\t%s\n", result.getInt("id"), result.getString("name"));
-        }
-    }
-
-    public void showEventTable() throws SQLException {
-        Statement stmt = connection.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT * FROM "+this.eventNameTable);
-        while (result.next()) {
-            System.out.printf("%d\t%d\t%d\t%d\t%s\n", result.getInt("id"),
-                    result.getInt("id_user"),result.getInt("id_day"),result.getInt("id_hour"),result.getString("message"));
-        }
     }
 
     public void backUpDatabase()throws SQLException {
@@ -148,5 +132,75 @@ public class DerbyDataBase implements DataBase {
 		User tempUser = new User( id, name);
 
 		return tempUser;
+	}
+	
+	public void deleteEvent(int id) throws SQLException{
+		PreparedStatement myStmt = null;
+		
+		try {
+			myStmt = connection.prepareStatement(
+					"delete from events where id =?");
+
+			// set params
+			myStmt.setInt(1, id);
+
+
+			// execute SQL
+			myStmt.executeUpdate();
+		}
+		finally {
+			DBUtils.close(myStmt);
+		}
+				
+	}
+	
+	public void addEvent(Event event) throws SQLException {
+		PreparedStatement myStmt = null;
+
+		try {
+			// prepare statement
+			myStmt = connection.prepareStatement(
+					"INSERT INTO events values (?, ?, ?, ?, ?, ?)",   
+					Statement.RETURN_GENERATED_KEYS);
+
+			// set params
+			myStmt.setInt(1, event.getId());
+			myStmt.setInt(2, event.getId_user());
+			myStmt.setString(3, event.getDay());
+			myStmt.setInt(4, event.getHour());
+			myStmt.setInt(5, event.getMin());
+			myStmt.setString(6, event.getMessage());
+	
+			// execute SQL
+			myStmt.executeUpdate();
+
+		} finally {
+			DBUtils.close(myStmt);
+		}
+	}
+	
+	public void updateEvent(Event event) throws SQLException {
+		PreparedStatement myStmt = null;
+
+		try {
+			// prepare statement
+			myStmt = connection.prepareStatement(
+					"update events set id=?, id_user=?, day=?, hhour=?, mminute=?, message=?");
+
+			// set params
+			myStmt.setInt(1, event.getId());
+			myStmt.setInt(2, event.getId_user());
+			myStmt.setString(3, event.getDay());
+			myStmt.setInt(4, event.getHour());
+			myStmt.setInt(5, event.getMin());
+			myStmt.setString(6, event.getMessage());
+			myStmt.execute("SET NAMES 'utf8'");
+			// execute SQL
+			myStmt.executeUpdate();
+			
+		} finally {
+			DBUtils.close(myStmt);
+		}
+
 	}
 }

@@ -15,10 +15,6 @@ public interface DataBase {
 
     void addRecordToUserTable(int id, String name) throws SQLException;
 
-    void showUserTable() throws SQLException;
-
-    void showEventTable() throws SQLException;
-
     void backUpDatabase()throws SQLException;
 
     void restoreDatabase() throws SQLException;
@@ -30,4 +26,10 @@ public interface DataBase {
     Event convertRowToEvent(ResultSet myRs) throws SQLException;
     
     User convertRowToUser(ResultSet myRs) throws SQLException;
+    
+    void updateEvent(Event event) throws SQLException;
+    
+    void addEvent(Event event) throws SQLException;
+    
+    void deleteEvent(int id) throws SQLException;
 }
