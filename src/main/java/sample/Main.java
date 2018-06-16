@@ -39,7 +39,7 @@ public class Main extends Application {
         loader.setController(new Controller());
         Pane root = loader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");
-        primaryStage.setScene(new Scene(root, 800, 420));
+        primaryStage.setScene(new Scene(root, 900, 470));
         primaryStage.setResizable(false);
         primaryStage.show();
 
