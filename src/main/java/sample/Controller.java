@@ -17,7 +17,7 @@ public class Controller {
         Optional<Event> result = dialogWithUser.getInputResult();
         result.ifPresent(pair -> {
             System.out.println("ID:" + pair.getId() + "\nID_USER:" + pair.getId_user()+
-                    "\nDAY:"+pair.getDay()+"\nHOUR:"+pair.getHour()+"\nMESSAGE:"+pair.getMessage());
+                    "\nDAY:"+pair.getDay()+"\nHOUR:"+pair.getHour()+"\nMINUTES:"+pair.getMin()+"\nMESSAGE:"+pair.getMessage());
         });
     }
 
