@@ -1,11 +1,5 @@
 package sample;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +12,25 @@ public class DerbyDataBase implements DataBase {
     public void createConnectionToDerby() throws SQLException {
         String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;create=true";
         connection = DriverManager.getConnection(dbUrl);
-        
-       //Statement stmt = connection.createStatement();
-        //stmt.executeUpdate("Drop Table Events");
+		DatabaseMetaData dbm = connection.getMetaData();
+		ResultSet tables = dbm.getTables(null, null, eventNameTable.toUpperCase(), null);
+		if (tables.next()) {
+			// Table exists
+			System.out.println("tabele już istnieją");
+		}
+		else {
+			// Table does not exist
+			System.out.println("tabele jeszcze nie istnieją");
+			createEventTable();
+		}
+		tables = dbm.getTables(null, null, userNameTable.toUpperCase(), null);
+		if (tables.next()) {
+			// Table exists
+		}
+		else {
+			//Table does not exist
+			createUserTable();
+		}
     }
 
     public void createUserTable() throws SQLException {

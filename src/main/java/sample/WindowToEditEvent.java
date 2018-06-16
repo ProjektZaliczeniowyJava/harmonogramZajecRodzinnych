@@ -2,6 +2,8 @@ package sample;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -61,6 +63,16 @@ public class WindowToEditEvent {
         TextField eventInformation = new TextField();
         eventInformation.setPromptText(this.event.getMessage());
 
+        Button deleteButton = new Button();
+        deleteButton.setText("Usuń");
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+            //tutaj wszystko związane z usunięciem bazy
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Kliknięto usuń");
+            }
+        });
+
         GridPane gridpane = new GridPane();
         gridpane.setPadding(new Insets(10));
         gridpane.setHgap(5);
@@ -75,6 +87,7 @@ public class WindowToEditEvent {
         gridpane.add(hour, 0,2 );
         gridpane.add(hourOption, 1,2 );
         gridpane.add(minuteOption, 2,2 );
+        gridpane.add(deleteButton, 2, 3);
 
         dialogPane.setContent(gridpane);
         Platform.runLater(() -> eventInformation.requestFocus());
