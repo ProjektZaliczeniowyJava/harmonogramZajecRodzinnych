@@ -1,13 +1,17 @@
 package sample;
+
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+
 import java.util.*;
 
 public class Controller {
-    @FXML
+	
+	private DataBase dataBase;
     private Button addButton;
 
     @FXML
@@ -28,12 +32,10 @@ public class Controller {
 //                    "\nDAY:"+pair.getDay()+"\nHOUR:"+pair.getHour()+"\nMINUTES:"+pair.getMin()+"\nMESSAGE:"+pair.getMessage());
 //        });
         new EventField(result.get()).addToGridPaneAndButtonList(gridPaneDay, mapOfButtons);
-
+    
         //tylko dla testow  jak dodasz wydarzenie dla osoba 1 , a drugie dla innej osoby z minutami 10 to pierwsze znika :)
         result.ifPresent(pair-> {if(pair.getMin() == 10) {
             removeFromGridPane(gridPaneDay, mapOfButtons.get(2));
         };});
     }
-
-
 }
