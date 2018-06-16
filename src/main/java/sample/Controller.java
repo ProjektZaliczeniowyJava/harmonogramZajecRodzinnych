@@ -24,8 +24,13 @@ public class Controller {
         Optional<Event> result = windowToCreateEvent.getInputResult();
 
         result.ifPresent(pair -> {
-            if(!pair.getMessage().isEmpty())
-                new EventField(result.get()).addToGridPaneAndButtonList(gridPaneDay, mapOfButtons);
+            if(!pair.getMessage().isEmpty()) {
+                EventField eventField = new EventField(result.get());
+                Button eventButton = eventField.createButtonEvent();
+                gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
+                mapOfButtons.put(eventField.getEventId(), eventButton);
+
+            }
         });
 
         //tylko dla testow  jak dodasz wydarzenie dla osoba 1 , a drugie dla innej osoby z minutami 10 to pierwsze znika :)
@@ -33,4 +38,5 @@ public class Controller {
             removeFromGridPane(gridPaneDay, mapOfButtons.get(2));
         }});
     }
+
 }
