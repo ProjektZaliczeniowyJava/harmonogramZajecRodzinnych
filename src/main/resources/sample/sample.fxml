@@ -5,19 +5,23 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="TOP_LEFT" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="TOP_LEFT" hgap="1.0" prefHeight="500.0" prefWidth="883.0" vgap="1.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints />
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints />
       <RowConstraints />
    </rowConstraints>
    <children>
-      <GridPane fx:id="gridPaneDay">
+      <GridPane fx:id="gridPaneDay" gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -54,47 +58,211 @@
          </children>-->
 
           <children>
-              <Button fx:id="addButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#clickAddButton" prefHeight="25.0" prefWidth="208.0" text="DODAJ" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-            <TextField alignment="TOP_CENTER" editable="false" text="Poniedziałek">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor></TextField>
-            <TextField alignment="TOP_CENTER" editable="false" layoutX="10.0" layoutY="13.0" text="Wtorek" GridPane.columnIndex="1">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </TextField>
-            <TextField alignment="TOP_CENTER" editable="false" layoutX="110.0" layoutY="13.0" text="Środa" GridPane.columnIndex="2">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </TextField>
-            <TextField alignment="TOP_CENTER" editable="false" layoutX="210.0" layoutY="13.0" text="Czwartek" GridPane.columnIndex="3">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </TextField>
-            <TextField alignment="TOP_CENTER" editable="false" layoutX="10.0" layoutY="13.0" text="Piątek" GridPane.columnIndex="4">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </TextField>
-            <TextField alignment="TOP_CENTER" editable="false" layoutX="410.0" layoutY="13.0" text="Sobota" GridPane.columnIndex="5">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </TextField>
-            <TextField alignment="TOP_CENTER" editable="false" layoutX="510.0" layoutY="13.0" text="Niedziela" GridPane.columnIndex="6">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </TextField>
-            <TextField alignment="TOP_CENTER" editable="false" layoutX="610.0" layoutY="13.0" text="Opcje" GridPane.columnIndex="7">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </TextField>
+              <Button fx:id="addButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#clickAddButton" prefHeight="25.0" prefWidth="208.0" text="DODAJ" GridPane.columnIndex="7" />
           </children>
       </GridPane>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="Poniedziałek">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></TextField>
+               </children></HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="Wtorek">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children></HBox>
+            <HBox layoutX="210.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="Środa">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children></HBox>
+            <HBox layoutX="410.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="Czwartek">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children></HBox>
+            <HBox layoutX="610.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="Piątek">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children></HBox>
+            <HBox layoutX="650.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="Sobota">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children></HBox>
+            <HBox layoutX="676.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="Niedziela">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children></HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="Opcje">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children></HBox>
+         </children></HBox>
+      <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+         <children>
+            <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="0:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></TextField>
+               </children></VBox>
+            <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="1:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="2:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="3:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="4:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="5:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="6:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="7:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="8:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="9:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="10:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="11:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="12:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="13:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="14:00">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
    </children>
 </GridPane>
