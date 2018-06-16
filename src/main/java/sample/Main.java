@@ -34,10 +34,11 @@ public class Main extends Application {
 //		System.out.println(dataBase.getAllUsers());
 //		System.out.println(dataBase.getAllEvents());
 //
-		
+
         FXMLLoader loader = new FXMLLoader();
         loader.setController(new Controller());
         Pane root = loader.load(getClass().getResource("sample.fxml"));
+        root.getStylesheets().add(String.valueOf(getClass().getResource("/styles/style1.css")));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");
         primaryStage.setScene(new Scene(root, 900, 470));
         primaryStage.setResizable(false);
