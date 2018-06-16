@@ -1,6 +1,7 @@
 package sample;
 
-import java.sql.*;
+import java.sql.SQLException;
+import java.util.List;
 
 public interface DataBase {
     void createConnectionToDerby() throws SQLException;
@@ -9,7 +10,7 @@ public interface DataBase {
 
     void createEventTable() throws SQLException;
 
-    void addRecordToEventTable(int id, int id_user, int id_day, int id_hour, String message) throws SQLException;
+    void addRecordToEventTable(int id, int id_user, String day, int hour, int minute, String message) throws SQLException;
 
     void addRecordToUserTable(int id, String name) throws SQLException;
 
@@ -20,4 +21,8 @@ public interface DataBase {
     void backUpDatabase()throws SQLException;
 
     void restoreDatabase() throws SQLException;
+    
+    List<User> getAllUsers() throws SQLException;
+
+    List<Event> getAllEvents() throws SQLException;
 }

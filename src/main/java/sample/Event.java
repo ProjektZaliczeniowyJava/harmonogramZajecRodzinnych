@@ -4,20 +4,20 @@ public class Event {
 	private int id;
 	private int id_user;
 	private String day;
-	private int hour;
+	private String hour;
 	private int minute;
 	private String message;
 	
-	public Event(int id, int id_user, String day, int hour, int min, String message) {
+	public Event(int id, int id_user, String day, String hour, String message) {
 		this.id = id;
 		this.id_user = id_user;
 		this.day = day;
 		this.hour = hour;
-		this.minute = min;
+		//this.minute = min;
 		this.message = message;
 	}
 	
-	public Event(int id_user, String day, int hour, int min, String message) {
+	public Event(int id_user, String day, String hour, String message) {
 		this.id = 0;
 		this.id_user = id_user;
 		this.day = day;
@@ -49,11 +49,11 @@ public class Event {
 		this.day = day;
 	}
 
-	public int getHour() {
+	public String getHour() {
 		return hour;
 	}
 
-	public void setHour(int hour) {
+	public void setHour(String hour) {
 		this.hour = hour;
 	}
 

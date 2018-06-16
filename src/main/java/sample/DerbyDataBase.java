@@ -1,5 +1,6 @@
 package sample;
 import java.sql.*;
+import java.util.List;
 
 public class DerbyDataBase implements DataBase {
     private Connection connection;
@@ -69,4 +70,23 @@ public class DerbyDataBase implements DataBase {
         }
         connection = DriverManager.getConnection(dbUrl);
     }
+
+	@Override
+	public void addRecordToEventTable(int id, int id_user, String day, int hour, int minute, String message)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<User> getAllUsers() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Event> getAllEvents() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
