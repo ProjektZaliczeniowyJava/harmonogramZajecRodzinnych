@@ -11,11 +11,13 @@ public class Controller {
 	private DataBase dataBase;
     private Button addButton;
 
+    //called when .fxml file is loaded
     public void initialize(){
         dataBase = new DerbyDataBase();
         try {
             dataBase.createConnectionToDerby();
             //dataBase.addRecordToUserTable(1, "dupa123");
+            //tutaj pobieramy dane z bazy, wypeniamy mapę przycisków, oraz je wyswietlamy na planszy
             System.out.println(dataBase.getAllUsers());
         } catch (SQLException e) {
             e.printStackTrace();
