@@ -3,12 +3,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+
+import java.sql.SQLException;
 import java.util.*;
 
 public class Controller {
 	private DataBase dataBase;
     private Button addButton;
 
+    public void initialize(){
+        dataBase = new DerbyDataBase();
+        try {
+            dataBase.createConnectionToDerby();
+            //dataBase.addRecordToUserTable(1, "dupa123");
+            System.out.println(dataBase.getAllUsers());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("inizjalizacja");
+    }
     @FXML
     private GridPane gridPaneDay;
     private HashMap<Integer, Button> mapOfButtons = new HashMap<>();
@@ -38,5 +52,7 @@ public class Controller {
             removeFromGridPane(gridPaneDay, mapOfButtons.get(2));
         }});
     }
+
+
 
 }
