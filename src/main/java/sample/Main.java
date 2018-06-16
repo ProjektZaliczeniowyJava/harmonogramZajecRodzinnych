@@ -16,8 +16,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        DataBase dataBase = new DerbyDataBase();
-        dataBase.createConnectionToDerby();
+//        DataBase dataBase = new DerbyDataBase();
+//        dataBase.createConnectionToDerby();
         //dataBase.createUserTable();
         //dataBase.addRecordToUserTable(1, "kasia");
         //dataBase.addRecordToUserTable(4, "karolina");
@@ -31,9 +31,9 @@ public class Main extends Application {
 //        dataBase.backUpDatabase();
 //        dataBase.restoreDatabase();
 
-		System.out.println(dataBase.getAllUsers());
-		System.out.println(dataBase.getAllEvents());
-		
+//		System.out.println(dataBase.getAllUsers());
+//		System.out.println(dataBase.getAllEvents());
+//
 		
         FXMLLoader loader = new FXMLLoader();
         loader.setController(new Controller());
