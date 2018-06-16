@@ -23,7 +23,7 @@ public class EventField {
         this.event = event;
     }
 
-    private Button createButtonEvent() {
+    public  Button createButtonEvent() {
         Button button = new Button(this.event.getMessage());
         //button.setId(Integer.toString(this.event.getId()));
         button.setOnAction((e)-> {
@@ -33,15 +33,16 @@ public class EventField {
         return button;
     }
 
-    private int getDayId(String day) {
-        return dayIdMap.get(day);
+    public int getDayId() {
+        return dayIdMap.get(this.event.getDay());
     }
 
-    public void addToGridPaneAndButtonList(GridPane gridPane, HashMap<Integer, Button> mapOfButtons) {
-        Button button = this.createButtonEvent();
-        gridPane.add(button, getDayId(this.event.getDay()), this.event.getHour());
-        mapOfButtons.put(this.event.getId(), button);
+    public int getHour() {
+        return this.event.getHour();
     }
 
+    public int getEventId() {
+        return this.event.getId();
+    }
 
 }
