@@ -21,6 +21,7 @@ public class Event {
 		this.id = 0;
 		this.id_user = id_user;
 		this.day = day;
+		this.minute = min;
 		this.hour = hour;
 		this.minute = min;
 		this.message = message;
@@ -75,6 +76,6 @@ public class Event {
 	}
 	
 	public String toString() {
-		return String.format("Event [%s %s %s %s %s]", this.id, this.id_user, this.day, this.hour, this.message);
+		return String.format("Event [%s %s %s %s %s %s]", this.id, this.id_user, this.day, this.hour, this.minute, this.message);
 	}
 }
