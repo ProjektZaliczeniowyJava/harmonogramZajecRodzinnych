@@ -1,5 +1,6 @@
 package sample;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,4 +26,8 @@ public interface DataBase {
     List<User> getAllUsers() throws SQLException;
 
     List<Event> getAllEvents() throws SQLException;
+    
+    Event convertRowToEvent(ResultSet myRs) throws SQLException;
+    
+    User convertRowToUser(ResultSet myRs) throws SQLException;
 }

@@ -1,5 +1,11 @@
 package sample;
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DerbyDataBase implements DataBase {
@@ -11,6 +17,9 @@ public class DerbyDataBase implements DataBase {
     public void createConnectionToDerby() throws SQLException {
         String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;create=true";
         connection = DriverManager.getConnection(dbUrl);
+        
+       //Statement stmt = connection.createStatement();
+        //stmt.executeUpdate("Drop Table Events");
     }
 
     public void createUserTable() throws SQLException {
@@ -21,13 +30,14 @@ public class DerbyDataBase implements DataBase {
     public void createEventTable() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("Create table " + this.eventNameTable +
-                " (id int primary key, id_user int, id_day int, id_hour int, message varchar(30))");
+                " (id int primary key, id_user int, day varchar(20), hhour int, mminute int, message varchar(30))");
     }
 
-    public void addRecordToEventTable(int id, int id_user, int id_day, int id_hour, String message) throws SQLException {
+
+    public void addRecordToEventTable(int id, int id_user, String day, int hour, int min, String message) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("INSERT INTO "+ this.eventNameTable + " values ("
-                + id + "," +  id_user + "," + id_day + "," + id_hour + ", '" + message + "' )");
+                + id + "," +  id_user + ",'" + day + "'," + hour + ", " + min + ", '" + message + "' )");
     }
 
     public void addRecordToUserTable(int id, String name) throws SQLException {
@@ -72,21 +82,71 @@ public class DerbyDataBase implements DataBase {
     }
 
 	@Override
-	public void addRecordToEventTable(int id, int id_user, String day, int hour, int minute, String message)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<User> getAllUsers() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Event> getAllEvents() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Event> list = new ArrayList<>();
+
+		Statement myStmt = null;
+		ResultSet myRs = null;
+
+		try {
+			myStmt = connection.createStatement();
+			myRs = myStmt.executeQuery("select * from events order by id");
+
+			while (myRs.next()) {
+				Event tempEvent = convertRowToEvent(myRs);
+				list.add(tempEvent);
+			}
+
+			return list;
+		} finally {
+			//konczenie polaczenia z baza
+			DBUtils.close(myStmt, myRs);
+		}
+	}
+	
+	public Event convertRowToEvent(ResultSet myRs) throws SQLException {
+
+		int id = myRs.getInt("id");
+		int id_user = myRs.getInt("id_user");
+		String day = myRs.getString("day");
+		int hour = myRs.getInt("hhour");
+		int minute = myRs.getInt("mminute");
+		String message = myRs.getString("message");
+
+		Event tempEvent = new Event(id, id_user, day, hour, minute, message);
+
+		return tempEvent;
+	}
+
+	public List<User> getAllUsers() throws SQLException {
+		List<User> list = new ArrayList<>();
+
+		Statement myStmt = null;
+		ResultSet myRs = null;
+
+		try {
+			myStmt = connection.createStatement();
+			myRs = myStmt.executeQuery("select * from users order by id");
+
+			while (myRs.next()) {
+				User tempUser = convertRowToUser(myRs);
+				list.add(tempUser);
+			}
+
+			return list;
+		} finally {
+			//konczenie polaczenia z baza
+			DBUtils.close(myStmt, myRs);
+		}
+	}
+	
+	public User convertRowToUser(ResultSet myRs) throws SQLException {
+
+		int id = myRs.getInt("id");
+		String name = myRs.getString("name");
+
+		User tempUser = new User( id, name);
+
+		return tempUser;
 	}
 }
