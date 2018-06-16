@@ -14,6 +14,7 @@ import java.util.Optional;
 //TODO jakoś trzeba wczytać do formularze dane o wydarzeniu i dodać opcje usunięcia-> metoda skojarzona
 // wszystko połączyc z baza danych i usunięciem przycisku
 public class WindowToEditEvent {
+    private Event event;
     private Optional<Event> result;
     private ArrayList<String> dayNames = new ArrayList<> (Arrays.asList
             ("PONIEDZIAŁEK","WTOREK", "ŚRODA", "CZWARTEK", "PIĄTEK", "SOBOTA", "NIEDZIELA"));
@@ -25,8 +26,8 @@ public class WindowToEditEvent {
                     "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32","33", "34","35", "36","37", "38", "39", "40",
                     "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52","53", "54","55", "56","57", "58", "59"));
 
-    public WindowToEditEvent() {
-        this.result = null;
+    public WindowToEditEvent(Event event) {
+        this.event=event;
     }
 
     public void createUserInput() {
@@ -41,26 +42,26 @@ public class WindowToEditEvent {
         ObservableList<String> personList =
                 FXCollections.observableArrayList("1", "2", "3");
         ComboBox<String> personOption = new ComboBox<>(personList);
-        personOption.getSelectionModel().selectFirst();
+        personOption.getSelectionModel().select(this.event.getId_user());
 
         ObservableList<String> dayList =
                 FXCollections.observableArrayList(dayNames);
         ComboBox<String> dayOption = new ComboBox<>(dayList);
-        dayOption.getSelectionModel().selectFirst();
+        dayOption.getSelectionModel().select(this.event.getDay());
 
         ObservableList<String> hourList =
                 FXCollections.observableArrayList(hours);
         ComboBox<String> hourOption = new ComboBox<>(hourList);
-        hourOption.getSelectionModel().selectFirst();
+        hourOption.getSelectionModel().select(Integer.toString(this.event.getHour()));
 
         ObservableList<String> minuteList =
                 FXCollections.observableArrayList(minutes);
         ComboBox<String> minuteOption = new ComboBox<>(minuteList);
-        minuteOption.getSelectionModel().selectFirst();
+        minuteOption.getSelectionModel().select(Integer.toString(this.event.getMin()));
 
 
         TextField eventInformation = new TextField();
-        eventInformation.setPromptText("Treść wydarzenia");
+        eventInformation.setPromptText(this.event.getMessage());
 
         Button deleteButton = new Button();
         deleteButton.setText("Usuń");
@@ -103,7 +104,6 @@ public class WindowToEditEvent {
     }
 
     public Optional<Event> getInputResult() {
-        //TODO dodać obsługe kiedy null
         return this.result;
     }
 }
