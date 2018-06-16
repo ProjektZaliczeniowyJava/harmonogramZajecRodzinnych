@@ -23,13 +23,18 @@ public class Main extends Application {
         dataBase.addRecordToUserTable(4, "karolina");
         dataBase.showUserTable();*/
 
-        /*dataBase.createEventTable();
-        dataBase.addRecordToEventTable(1, 2, 3, 4, "wyniesc smieci");
-        dataBase.addRecordToEventTable(2, 2, 6, 7, "pozmywac naczynia");
+        //Tworzenie tabeli event jeszcze raz
+        //dataBase.createEventTable();
+        /*dataBase.addRecordToEventTable(1, 2, "Poniedzialek", 4, 15, "wyniesc smieci");
+        dataBase.addRecordToEventTable(2, 2, "Wtorek", 7, 20, "pozmywac naczynia");
         dataBase.showEventTable();*/
 //        dataBase.backUpDatabase();
 //        dataBase.restoreDatabase();
 
+		System.out.println(dataBase.getAllUsers());
+		System.out.println(dataBase.getAllEvents());
+		
+		
         FXMLLoader loader = new FXMLLoader();
         loader.setController(new Controller());
         Pane root = loader.load(getClass().getResource("sample.fxml"));
