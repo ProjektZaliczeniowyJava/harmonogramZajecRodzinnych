@@ -23,6 +23,7 @@ public class Event {
 		this.day = day;
 		this.minute = min;
 		this.hour = hour;
+		this.minute = min;
 		this.message = message;
 	}
 
