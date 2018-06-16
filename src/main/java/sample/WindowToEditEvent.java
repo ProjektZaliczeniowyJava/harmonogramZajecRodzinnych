@@ -5,16 +5,13 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Box;
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class DialogWithUser {
+//TODO jakoś trzeba wczytać do formularze dane o wydarzeniu i dodać opcje usunięcia-> metoda skojarzona
+// wszystko połączyc z baza danych i usunięciem przycisku
+public class WindowToEditEvent {
     private Optional<Event> result;
     private ArrayList<String> dayNames = new ArrayList<> (Arrays.asList
             ("PONIEDZIAŁEK","WTOREK", "ŚRODA", "CZWARTEK", "PIĄTEK", "SOBOTA", "NIEDZIELA"));
@@ -26,13 +23,13 @@ public class DialogWithUser {
                     "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32","33", "34","35", "36","37", "38", "39", "40",
                     "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52","53", "54","55", "56","57", "58", "59"));
 
-    public DialogWithUser() {
+    public WindowToEditEvent() {
         this.result = null;
     }
 
     public void createUserInput() {
         Dialog<Event> dialog = new Dialog<>();
-        dialog.setTitle("Dodaj wydarzenie ");
+        dialog.setTitle("Edytuj wydarzenie ");
         Label person = new Label("Osoba");
         Label day = new Label("Dzien");
         Label hour = new Label("Godzina");

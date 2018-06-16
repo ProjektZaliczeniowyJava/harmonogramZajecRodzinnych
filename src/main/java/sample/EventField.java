@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EventField {
+    //TODO id uzytkownika skojarzone z kolorem przycisku
     private Event event;
     private static final Map<String, Integer> dayIdMap = new HashMap<>();
     static {
@@ -23,14 +24,24 @@ public class EventField {
     }
 
     private Button createButtonEvent() {
-        return new Button(this.event.getMessage());
+        Button button = new Button(this.event.getMessage());
+        //button.setId(Integer.toString(this.event.getId()));
+        button.setOnAction((e)-> {
+           new WindowToEditEvent().createUserInput();
+        });
+
+        return button;
     }
 
     private int getDayId(String day) {
         return dayIdMap.get(day);
     }
 
-    public void addToGridPane(GridPane gridPane) {
-        gridPane.add(createButtonEvent(), getDayId(this.event.getDay()), this.event.getHour());
+    public void addToGridPaneAndButtonList(GridPane gridPane, HashMap<Integer, Button> mapOfButtons) {
+        Button button = this.createButtonEvent();
+        gridPane.add(button, getDayId(this.event.getDay()), this.event.getHour());
+        mapOfButtons.put(this.event.getId(), button);
     }
+
+
 }
