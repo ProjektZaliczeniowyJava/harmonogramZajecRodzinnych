@@ -23,6 +23,7 @@ public class Controller {
             //dataBase.addRecordToUserTable(1, "dupa123");
             //tutaj pobieramy dane z bazy, wypeniamy mapę przycisków, oraz je wyswietlamy na planszy
             System.out.println(dataBase.getAllUsers());
+            System.out.println(dataBase.getAllEvents());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,21 +56,21 @@ public class Controller {
 
         result.ifPresent(pair -> {
             if (!pair.getMessage().isEmpty()) {
-                EventField eventField = new EventField(result.get());
+                Event event = result.get();
+                EventField eventField = new EventField(event);
                 Button eventButton = eventField.createButtonEvent();
                 gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
                 mapOfButtons.put(eventField.getEventId(), eventButton);
-
+                //TODO Niby zapis do bazy działa, ale jest problem z kluczem głównym(nie chce dodawać kolejnych rekordów).
+                //TODO Trzeba ogarnąć to żeby dodając nowe rekordy sprawdzał czy w danym czasie juz istnieje a jesli nit, to niech generuje nowy klucz główny.(Co nie dzieje się teraz)
+                /*try {
+                    dataBase.addEvent(event);
+                } catch(SQLException e) {
+                    e.printStackTrace();
+                }*/
             }
         });
-// WYSKAKUJE NULLPOINTER przy dodawaniu do bazy !!!!
-//        result.ifPresent(pair -> {
-//            try {
-//                dataBase.addEvent(result.get());
-//            } catch(SQLException e) {
-//                    ;
-//                }
-//            });
+
 
 
         //tylko dla testow  jak dodasz wydarzenie dla osoba 1 , a drugie dla innej osoby z minutami 10 to pierwsze znika :)
