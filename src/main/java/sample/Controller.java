@@ -56,22 +56,20 @@ public class Controller {
 
         result.ifPresent(pair -> {
             if (!pair.getMessage().isEmpty()) {
-                Event event = result.get();
-                EventField eventField = new EventField(event);
+                EventField eventField = new EventField(result.get());
                 Button eventButton = eventField.createButtonEvent();
                 gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
                 mapOfButtons.put(eventField.getEventId(), eventButton);
-                //TODO Niby zapis do bazy działa, ale jest problem z kluczem głównym(nie chce dodawać kolejnych rekordów).
-                //TODO Trzeba ogarnąć to żeby dodając nowe rekordy sprawdzał czy w danym czasie juz istnieje a jesli nit, to niech generuje nowy klucz główny.(Co nie dzieje się teraz)
-                /*try {
-                    dataBase.addEvent(event);
+                
+                try {
+                	result.get().getMessage();
+                	dataBase.addEvent(result.get());
+                    
                 } catch(SQLException e) {
-                    e.printStackTrace();
-                }*/
+
+                }
             }
         });
-
-
 
         //tylko dla testow  jak dodasz wydarzenie dla osoba 1 , a drugie dla innej osoby z minutami 10 to pierwsze znika :)
         result.ifPresent(pair -> {
@@ -87,7 +85,7 @@ public class Controller {
 //            List<Event> events = dataBase.getAllEvents();
 //            WindowToEditEvent windowToEditEvent = new WindowToEditEvent(events.get(idEvent));
         // na sztywno wydarzenie do edytowania, powinno odczytywac z bazy danych do listy i potem z listy czytamy wydarzenie
-            Event event = new Event(1,2, "NIEDZIELA", 8, 20, "ZMYWANIE NACZYN");
+            Event event = new Event(2, "NIEDZIELA", 8, 20, "ZMYWANIE NACZYN");
             WindowToEditEvent windowToEditEvent = new WindowToEditEvent(event);
             windowToEditEvent.createUserInput();
             Optional<Event> result = windowToEditEvent.getInputResult();
@@ -100,11 +98,13 @@ public class Controller {
                     gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
                     mapOfButtons.put(eventField.getEventId(), eventButton);
                 }
+                
+               
+                
             });
 //        } catch (SQLException e) {
 //            ;
 //        }
-
 
     }
 

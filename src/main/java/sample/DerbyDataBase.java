@@ -12,6 +12,11 @@ public class DerbyDataBase implements DataBase {
     public void createConnectionToDerby() throws SQLException {
         String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;create=true";
         connection = DriverManager.getConnection(dbUrl);
+        
+        //Drop stara tabele zeby w nowej bylo auto_increment
+        //Statement stmt = connection.createStatement();
+        //stmt.executeUpdate("Drop Table Events");
+        
 		DatabaseMetaData dbm = connection.getMetaData();
 		ResultSet tables = dbm.getTables(null, null, eventNameTable.toUpperCase(), null);
 		if (tables.next()) {
@@ -39,7 +44,8 @@ public class DerbyDataBase implements DataBase {
     public void createEventTable() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("Create table " + this.eventNameTable +
-                " (id int primary key, id_user int, day varchar(20), hhour int, mminute int, message varchar(30))");
+                " (id int primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                + " id_user int, day varchar(20), hhour int, mminute int, message varchar(30))");
     }
 
 
@@ -159,19 +165,24 @@ public class DerbyDataBase implements DataBase {
 
 		try {
 			myStmt = connection.prepareStatement(
-					"INSERT INTO events values (?, ?, ?, ?, ?, ?)",   
+					"INSERT INTO events (id_user, day, hhour, mminute, message)"
+					+ " values (?, ?, ?, ?, ?)" ,  
 					Statement.RETURN_GENERATED_KEYS);
 
-			myStmt.setInt(1, event.getId());
-			myStmt.setInt(2, event.getId_user());
-			myStmt.setString(3, event.getDay());
-			myStmt.setInt(4, event.getHour());
-			myStmt.setInt(5, event.getMin());
-			myStmt.setString(6, event.getMessage());
-	
-			myStmt.executeUpdate();
+			myStmt.setInt(1, event.getId_user());
+			myStmt.setString(2, event.getDay());
+			myStmt.setInt(3, event.getHour());
+			myStmt.setInt(4, event.getMin());
+			myStmt.setString(5, event.getMessage());
 
-		} finally {
+			myStmt.executeUpdate();
+			
+		}catch (SQLException e) {
+
+			//System.out.println(e.getMessage());
+
+		}
+		 finally {
 			DBUtils.close(myStmt);
 		}
 	}
