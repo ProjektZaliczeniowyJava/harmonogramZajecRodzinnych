@@ -10,6 +10,7 @@ import java.util.*;
 public class Controller {
     private DataBase dataBase;
     private Button addButton;
+    private Button PDFButton;
     private Observer observer;
 
     public Controller()  {System.out.println("konstruktor");}
@@ -107,5 +108,11 @@ public class Controller {
 //        }
 
     }
+
+    public void clickPDFButton() {
+        //TODO generowanie do pdf
+        System.out.println("kliknięto przycisk PDF");
+    }
+
 
 }
