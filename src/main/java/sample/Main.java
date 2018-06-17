@@ -40,7 +40,7 @@ public class Main extends Application {
         Pane root = loader.load(getClass().getResource("sample.fxml"));
         root.getStylesheets().add(String.valueOf(getClass().getResource("/styles/style1.css")));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");
-        primaryStage.setScene(new Scene(root, 900, 470));
+        primaryStage.setScene(new Scene(root, 850, 600));
         primaryStage.setResizable(false);
         primaryStage.show();
 

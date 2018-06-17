@@ -8,6 +8,7 @@ import java.util.*;
 public class Controller {
 	private DataBase dataBase;
     private Button addButton;
+    private Button PDFButton;
 
     @FXML
     private GridPane gridPaneDay;
@@ -32,5 +33,10 @@ public class Controller {
         result.ifPresent(pair-> {if(pair.getMin() == 10) {
             removeFromGridPane(gridPaneDay, mapOfButtons.get(2));
         }});
+    }
+
+    public void clickPDFButton() {
+        //TODO generowanie do pdf
+        System.out.println("kliknięto przycisk PDF");
     }
 }
