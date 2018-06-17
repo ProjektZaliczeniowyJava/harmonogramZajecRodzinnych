@@ -85,6 +85,7 @@ public class WindowToCreateEvent {
             }
             return null;
         });
+
         this.result = dialog.showAndWait();
     }
 
