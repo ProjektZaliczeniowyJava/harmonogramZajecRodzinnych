@@ -1,13 +1,13 @@
 package sample;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EventField {
     //TODO id uzytkownika skojarzone z kolorem przycisku
     private Event event;
+    private Observer observer = Observer.getInstance();
     private static final Map<String, Integer> dayIdMap = new HashMap<>();
     static {
         dayIdMap.put("PONIEDZIAŁEK", 0);
@@ -23,25 +23,29 @@ public class EventField {
         this.event = event;
     }
 
-    private Button createButtonEvent() {
+    public  Button createButtonEvent() {
         Button button = new Button(this.event.getMessage());
-        //button.setId(Integer.toString(this.event.getId()));
         button.setOnAction((e)-> {
-           new WindowToEditEvent().createUserInput();
+            this.notifyObserver(this.getEventId());
         });
 
         return button;
     }
 
-    private int getDayId(String day) {
-        return dayIdMap.get(day);
+    public void notifyObserver(int idEvent) {
+        this.observer.update(idEvent);
     }
 
-    public void addToGridPaneAndButtonList(GridPane gridPane, HashMap<Integer, Button> mapOfButtons) {
-        Button button = this.createButtonEvent();
-        gridPane.add(button, getDayId(this.event.getDay()), this.event.getHour());
-        mapOfButtons.put(this.event.getId(), button);
+    public int getDayId() {
+        return dayIdMap.get(this.event.getDay());
     }
 
+    public int getHour() {
+        return this.event.getHour();
+    }
+
+    public int getEventId() {
+        return this.event.getId();
+    }
 
 }

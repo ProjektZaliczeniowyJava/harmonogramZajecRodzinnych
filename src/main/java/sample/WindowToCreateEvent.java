@@ -79,12 +79,13 @@ public class WindowToCreateEvent {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.OK) {
-                return new Event(1+Integer.parseInt(personOption.getValue()), Integer.parseInt(personOption.getValue()),
+                return new Event(Integer.parseInt(personOption.getValue()),
                         dayOption.getValue(), Integer.parseInt(hourOption.getValue()), Integer.parseInt(minuteOption.getValue()),eventInformation.getText());
 
             }
             return null;
         });
+        
         this.result = dialog.showAndWait();
     }
 

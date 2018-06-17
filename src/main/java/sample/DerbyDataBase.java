@@ -1,11 +1,5 @@
 package sample;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +13,27 @@ public class DerbyDataBase implements DataBase {
         String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;create=true";
         connection = DriverManager.getConnection(dbUrl);
         
-       //Statement stmt = connection.createStatement();
+        //Drop stara tabele zeby w nowej bylo auto_increment
+        //Statement stmt = connection.createStatement();
         //stmt.executeUpdate("Drop Table Events");
+        
+		DatabaseMetaData dbm = connection.getMetaData();
+		ResultSet tables = dbm.getTables(null, null, eventNameTable.toUpperCase(), null);
+		if (tables.next()) {
+			// Table exists
+			System.out.println("tabele już istnieją");
+		}
+		else {
+			// Table does not exist
+			System.out.println("tabele jeszcze nie istnieją");
+			createEventTable();
+		}
+		tables = dbm.getTables(null, null, userNameTable.toUpperCase(), null);
+		if (tables.next()) {}//user table exists
+		else {
+			//user table does not exist
+			createUserTable();
+		}
     }
 
     public void createUserTable() throws SQLException {
@@ -31,7 +44,8 @@ public class DerbyDataBase implements DataBase {
     public void createEventTable() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("Create table " + this.eventNameTable +
-                " (id int primary key, id_user int, day varchar(20), hhour int, mminute int, message varchar(30))");
+                " (id int primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                + " id_user int, day varchar(20), hhour int, mminute int, message varchar(30))");
     }
 
 
@@ -68,7 +82,6 @@ public class DerbyDataBase implements DataBase {
 	@Override
 	public List<Event> getAllEvents() throws SQLException {
 		List<Event> list = new ArrayList<>();
-
 		Statement myStmt = null;
 		ResultSet myRs = null;
 
@@ -83,7 +96,6 @@ public class DerbyDataBase implements DataBase {
 
 			return list;
 		} finally {
-			//konczenie polaczenia z baza
 			DBUtils.close(myStmt, myRs);
 		}
 	}
@@ -104,7 +116,6 @@ public class DerbyDataBase implements DataBase {
 
 	public List<User> getAllUsers() throws SQLException {
 		List<User> list = new ArrayList<>();
-
 		Statement myStmt = null;
 		ResultSet myRs = null;
 
@@ -119,7 +130,6 @@ public class DerbyDataBase implements DataBase {
 
 			return list;
 		} finally {
-			//konczenie polaczenia z baza
 			DBUtils.close(myStmt, myRs);
 		}
 	}
@@ -141,11 +151,7 @@ public class DerbyDataBase implements DataBase {
 			myStmt = connection.prepareStatement(
 					"delete from events where id =?");
 
-			// set params
 			myStmt.setInt(1, id);
-
-
-			// execute SQL
 			myStmt.executeUpdate();
 		}
 		finally {
@@ -158,23 +164,25 @@ public class DerbyDataBase implements DataBase {
 		PreparedStatement myStmt = null;
 
 		try {
-			// prepare statement
 			myStmt = connection.prepareStatement(
-					"INSERT INTO events values (?, ?, ?, ?, ?, ?)",   
+					"INSERT INTO events (id_user, day, hhour, mminute, message)"
+					+ " values (?, ?, ?, ?, ?)" ,  
 					Statement.RETURN_GENERATED_KEYS);
 
-			// set params
-			myStmt.setInt(1, event.getId());
-			myStmt.setInt(2, event.getId_user());
-			myStmt.setString(3, event.getDay());
-			myStmt.setInt(4, event.getHour());
-			myStmt.setInt(5, event.getMin());
-			myStmt.setString(6, event.getMessage());
-	
-			// execute SQL
-			myStmt.executeUpdate();
+			myStmt.setInt(1, event.getId_user());
+			myStmt.setString(2, event.getDay());
+			myStmt.setInt(3, event.getHour());
+			myStmt.setInt(4, event.getMin());
+			myStmt.setString(5, event.getMessage());
 
-		} finally {
+			myStmt.executeUpdate();
+			
+		}catch (SQLException e) {
+
+			//System.out.println(e.getMessage());
+
+		}
+		 finally {
 			DBUtils.close(myStmt);
 		}
 	}
@@ -183,11 +191,9 @@ public class DerbyDataBase implements DataBase {
 		PreparedStatement myStmt = null;
 
 		try {
-			// prepare statement
 			myStmt = connection.prepareStatement(
 					"update events set id=?, id_user=?, day=?, hhour=?, mminute=?, message=?");
 
-			// set params
 			myStmt.setInt(1, event.getId());
 			myStmt.setInt(2, event.getId_user());
 			myStmt.setString(3, event.getDay());
@@ -195,7 +201,7 @@ public class DerbyDataBase implements DataBase {
 			myStmt.setInt(5, event.getMin());
 			myStmt.setString(6, event.getMessage());
 			myStmt.execute("SET NAMES 'utf8'");
-			// execute SQL
+
 			myStmt.executeUpdate();
 			
 		} finally {
