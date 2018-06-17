@@ -36,10 +36,11 @@ public class Main extends Application {
 //
 
         FXMLLoader loader = new FXMLLoader();
-        Controller controller = new Controller();
-        controller.addToObserver();
+        //Controller controller = new Controller();
+        //controller.addToObserver();
+        System.out.println("po stworzeniu pierwszego kontrolera, kolejny kontroler nie będie miał obserwatora ;d");
 //        controller.addDataBase(dataBase);
-        loader.setController(controller);
+        loader.setController(new Controller());
         Pane root = loader.load(getClass().getResource("sample.fxml"));
         root.getStylesheets().add(String.valueOf(getClass().getResource("/styles/style1.css")));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");

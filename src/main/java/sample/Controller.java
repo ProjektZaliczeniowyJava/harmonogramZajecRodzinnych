@@ -8,15 +8,20 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class Controller {
-    private DataBase dataBase = new DerbyDataBase();
+    private DataBase dataBase;
     private Button addButton;
-    private Observer observer = Observer.getInstance();
+    private Observer observer;
 
+    public Controller()  {System.out.println("konstruktor");}
+    //called when .fxml file is loaded
     public void initialize(){
+        observer = Observer.getInstance();
+        addToObserver();
         dataBase = new DerbyDataBase();
         try {
             dataBase.createConnectionToDerby();
             //dataBase.addRecordToUserTable(1, "dupa123");
+            //tutaj pobieramy dane z bazy, wypeniamy mapę przycisków, oraz je wyswietlamy na planszy
             System.out.println(dataBase.getAllUsers());
         } catch (SQLException e) {
             e.printStackTrace();

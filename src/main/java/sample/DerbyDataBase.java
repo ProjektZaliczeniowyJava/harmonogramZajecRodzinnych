@@ -24,11 +24,9 @@ public class DerbyDataBase implements DataBase {
 			createEventTable();
 		}
 		tables = dbm.getTables(null, null, userNameTable.toUpperCase(), null);
-		if (tables.next()) {
-			// Table exists
-		}
+		if (tables.next()) {}//user table exists
 		else {
-			//Table does not exist
+			//user table does not exist
 			createUserTable();
 		}
     }
