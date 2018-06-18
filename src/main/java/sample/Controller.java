@@ -115,14 +115,9 @@ public class Controller {
 			}
     }
 
-    public void clickPDFButton() {
-        //TODO generowanie do pdf
-        System.out.println("kliknięto przycisk PDF");
-    }
-    
     public void loadEventsFromDatabase() throws SQLException {
     	List<Event> events = dataBase.getAllEvents();
-    	
+
     	for(Event event: events) {
             EventField eventField = new EventField(event);
             Button eventButton = eventField.createButtonEvent();
@@ -131,42 +126,6 @@ public class Controller {
             mapOfButtons.put(eventField.getEventId(), eventButton);
     	}
     }
-
-	public void clickEventButton(int idEvent) {
-		// TODO dodac aktualizacje danych w bazie na podstawie nowego event, stare
-		// usuwamy?
-		// na sztywno wydarzenie do edytowania, powinno odczytywac z bazy danych do
-		// listy i potem z listy czytamy wydarzenie
-
-		WindowToEditEvent windowToEditEvent = null;
-		try {
-			windowToEditEvent = new WindowToEditEvent(dataBase.getEvent(idEvent));
-		} catch (SQLException exe) {
-
-		}
-
-		windowToEditEvent.createUserInput();
-		Optional<Event> result = windowToEditEvent.getInputResult();
-
-		result.ifPresent(pair -> {
-			if (!pair.getMessage().isEmpty()) {
-
-				try {
-					dataBase.updateEvent(idEvent, result.get());
-				} catch (SQLException exe) {
-					exe.printStackTrace();
-				}
-
-				Event event = new Event(idEvent, result.get().getId_user(), result.get().getDay(),
-						result.get().getHour(), result.get().getMin(), result.get().getMessage());
-				EventField eventField = new EventField(event);
-				Button eventButton = eventField.createButtonEvent();
-
-				gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
-				mapOfButtons.put(idEvent, eventButton);
-			}
-		});
-	}
 
 	public void clickPDFButton() {
 
@@ -188,16 +147,5 @@ public class Controller {
 
 	}
 
-	public void loadEventsFromDatabase() throws SQLException {
-		List<Event> events = dataBase.getAllEvents();
-
-		for (Event event : events) {
-			EventField eventField = new EventField(event);
-			Button eventButton = eventField.createButtonEvent();
-
-			gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
-			mapOfButtons.put(eventField.getEventId(), eventButton);
-		}
-	}
 
 }
