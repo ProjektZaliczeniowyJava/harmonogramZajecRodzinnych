@@ -59,11 +59,13 @@ public class Controller {
 
                 }    
                 
-                EventField eventField = new EventField(result.get());
+                Event event = new Event(key, result.get().getId_user(), result.get().getDay(),
+                		result.get().getHour(),result.get().getMin(), result.get().getMessage());
+                EventField eventField = new EventField(event);
                 Button eventButton = eventField.createButtonEvent();
                 gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
                 //zmieniałem na key chyba o to chodziło
-                mapOfButtons.put(key, eventButton);    
+                mapOfButtons.put(key, eventButton);  
             }
         });
 
@@ -77,16 +79,13 @@ public class Controller {
 
     public void clickEventButton(int idEvent) {
 //        TODO dodac aktualizacje danych w bazie na podstawie nowego event, stare usuwamy?
-//        try {
-//            List<Event> events = dataBase.getAllEvents();
-            //WindowToEditEvent windowToEditEvent = new WindowToEditEvent(events.get(idEvent));
         // na sztywno wydarzenie do edytowania, powinno odczytywac z bazy danych do listy i potem z listy czytamy wydarzenie
-            //Event event = new Event(2, "NIEDZIELA", 8, 20, "ZMYWANIE NACZYN");
+
             WindowToEditEvent windowToEditEvent = null;
             try {
-
 				windowToEditEvent = new WindowToEditEvent(dataBase.getEvent(idEvent));
 			} catch (SQLException exe) {
+				 
 			}
 			
             windowToEditEvent.createUserInput();
@@ -100,21 +99,16 @@ public class Controller {
                     } catch(SQLException exe) {
                     	exe.printStackTrace();
                     }
-                    
-                    EventField eventField = new EventField(result.get());
-                    Button eventButton = eventField.createButtonEvent();
-                    
-                    gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
-                    mapOfButtons.put(eventField.getEventId(), eventButton);
-                }
-                
-               
-                
-            });
-//        } catch (SQLException e) {
-//            ;
-//        }
 
+                Event event = new Event(idEvent, result.get().getId_user(), result.get().getDay(),
+                		result.get().getHour(),result.get().getMin(), result.get().getMessage());
+                EventField eventField = new EventField(event);
+                Button eventButton = eventField.createButtonEvent();
+                
+                gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
+                mapOfButtons.put(idEvent, eventButton);
+                }
+            });
     }
 
     public void clickPDFButton() {
@@ -126,7 +120,6 @@ public class Controller {
     	List<Event> events = dataBase.getAllEvents();
     	
     	for(Event event: events) {
-    		System.out.println(event);
             EventField eventField = new EventField(event);
             Button eventButton = eventField.createButtonEvent();
 
