@@ -29,7 +29,7 @@ public interface DataBase {
     
     void updateEvent(Event event) throws SQLException;
     
-    void addEvent(Event event) throws SQLException;
+    int addEvent(Event event) throws SQLException;
     
     void deleteEvent(int id) throws SQLException;
 }
