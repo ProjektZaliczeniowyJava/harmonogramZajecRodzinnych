@@ -10,11 +10,13 @@ public class Controller {
     private DataBase dataBase;
     private Button addButton;
     private Button PDFButton;
-    private ButtonObserver buttonObserver;
+    private ButtonCreationObserver buttonCreationObserver;
+    private ButtonRemovalObserver buttonRemovalObserver;
 
     //called when .fxml file is loaded
     public void initialize(){
-        buttonObserver = ButtonObserver.getInstance();
+        buttonCreationObserver = ButtonCreationObserver.getInstance();
+        buttonRemovalObserver = ButtonRemovalObserver.getInstance();
         addToObserver();
         dataBase = new DerbyDataBase();
         try {
@@ -29,19 +31,23 @@ public class Controller {
     private GridPane gridPaneDay;
     private HashMap<Integer, Button> mapOfButtons = new HashMap<>();
 
-
-    public void addToObserver() {
-        this.buttonObserver.addControllerToObserver(this);
+    private void addToObserver() {
+        this.buttonCreationObserver.addControllerToObserver(this);
+        this.buttonRemovalObserver.addControllerToObserver(this);
     }
 
-//    public void addDataBase(DataBase db) {
-//        this.dataBase = db;
-//    }
+    public void removeButtonFromGrid(int idEvent) {
+        Button buttonToRemove = mapOfButtons.get(idEvent);
+        this.gridPaneDay.getChildren().remove(buttonToRemove);
+    }
 
-    private void removeFromGridPane(GridPane gridPane, Button button) {
-//        podajemy id button i bierzemy button z map, usuwamy z map
-        // zabrac to stad potem
-        gridPane.getChildren().remove(button);
+    public void removeButtonFromDataBase(int idEvent) {
+        mapOfButtons.remove(idEvent);
+        try {
+            this.dataBase.deleteEvent(idEvent);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickAddButton() {
@@ -49,66 +55,48 @@ public class Controller {
         windowToCreateEvent.createUserInput();
         Optional<Event> result = windowToCreateEvent.getInputResult();
         
-        result.ifPresent(pair -> {
-            if (!pair.getMessage().isEmpty()) {
+        result.ifPresent(res -> {
+            if (!res.getMessage().isEmpty()) {
             	int key = 0;
                 try {
-                	//Tu masz key czyli id_wydarzenia
                 	key = dataBase.addEvent(result.get());
+                    Event event = new Event(key, result.get().getId_user(), result.get().getDay(),
+                            result.get().getHour(),result.get().getMin(), result.get().getMessage());
+                    EventField eventField = new EventField(event);
+                    Button eventButton = eventField.createButtonEvent();
+                    gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
+                    mapOfButtons.put(key, eventButton);
                 } catch(SQLException e) {
-
+                    e.printStackTrace();
                 }    
-                
-                Event event = new Event(key, result.get().getId_user(), result.get().getDay(),
-                		result.get().getHour(),result.get().getMin(), result.get().getMessage());
-                EventField eventField = new EventField(event);
-                Button eventButton = eventField.createButtonEvent();
-                gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
-                //zmieniałem na key chyba o to chodziło
-                mapOfButtons.put(key, eventButton);  
-            }
-        });
-
-        //tylko dla testow  jak dodasz wydarzenie dla osoba 1 , a drugie dla innej osoby z minutami 10 to pierwsze znika :)
-        result.ifPresent(pair -> {
-            if (pair.getMin() == 10) {
-                removeFromGridPane(gridPaneDay, mapOfButtons.get(2));
             }
         });
     }
 
     public void clickEventButton(int idEvent) {
-//        TODO dodac aktualizacje danych w bazie na podstawie nowego event, stare usuwamy?
-        // na sztywno wydarzenie do edytowania, powinno odczytywac z bazy danych do listy i potem z listy czytamy wydarzenie
-
-            WindowToEditEvent windowToEditEvent = null;
             try {
-				windowToEditEvent = new WindowToEditEvent(dataBase.getEvent(idEvent));
-			} catch (SQLException exe) {
-				 
-			}
-			
-            windowToEditEvent.createUserInput();
-            Optional<Event> result = windowToEditEvent.getInputResult();
-
-            result.ifPresent(pair -> {
-                if (!pair.getMessage().isEmpty()) {
-                	
-                    try {
-                    	dataBase.updateEvent(idEvent, result.get());
-                    } catch(SQLException exe) {
-                    	exe.printStackTrace();
+				WindowToEditEvent windowToEditEvent = new WindowToEditEvent(dataBase.getEvent(idEvent));
+                windowToEditEvent.createUserInput();
+                Optional<Event> result = windowToEditEvent.getInputResult();
+                result.ifPresent(res -> {
+                    if (!res.getMessage().isEmpty()) {
+                        try {
+                            this.removeButtonFromGrid(idEvent);
+                            Event event = new Event(idEvent, result.get().getId_user(), result.get().getDay(),
+                                    result.get().getHour(),result.get().getMin(), result.get().getMessage());
+                            dataBase.updateEvent(idEvent, event);
+                            EventField eventField = new EventField(event);
+                            Button eventButton = eventField.createButtonEvent();
+                            gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
+                            mapOfButtons.put(idEvent, eventButton);
+                        } catch(SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
-
-                Event event = new Event(idEvent, result.get().getId_user(), result.get().getDay(),
-                		result.get().getHour(),result.get().getMin(), result.get().getMessage());
-                EventField eventField = new EventField(event);
-                Button eventButton = eventField.createButtonEvent();
-                
-                gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
-                mapOfButtons.put(idEvent, eventButton);
-                }
-            });
+                });
+			} catch (SQLException exe) {
+                exe.printStackTrace();
+			}
     }
 
     public void clickPDFButton() {
