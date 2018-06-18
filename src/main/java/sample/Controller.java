@@ -12,7 +12,6 @@ public class Controller {
     private Button PDFButton;
     private ButtonObserver buttonObserver;
 
-    public Controller()  {System.out.println("konstruktor");}
     //called when .fxml file is loaded
     public void initialize(){
         buttonObserver = ButtonObserver.getInstance();
@@ -22,13 +21,9 @@ public class Controller {
             dataBase.createConnectionToDerby();
             //tutaj pobieramy dane z bazy, wypeniamy mapę przycisków, oraz je wyswietlamy na planszy
             loadEventsFromDatabase();
-            System.out.println(dataBase.getAllUsers());
-            System.out.println(dataBase.getAllEvents());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println("inizjalizacja");
     }
     @FXML
     private GridPane gridPaneDay;
