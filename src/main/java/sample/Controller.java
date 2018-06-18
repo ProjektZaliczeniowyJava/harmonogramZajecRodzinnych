@@ -20,6 +20,7 @@ public class Controller {
         try {
             dataBase.createConnectionToDerby();
             //tutaj pobieramy dane z bazy, wypeniamy mapę przycisków, oraz je wyswietlamy na planszy
+            loadEventsFromDatabase();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,7 +57,7 @@ public class Controller {
                 	key = dataBase.addEvent(result.get());
                 } catch(SQLException e) {
 
-                }
+                }    
                 
                 EventField eventField = new EventField(result.get());
                 Button eventButton = eventField.createButtonEvent();
@@ -80,16 +81,29 @@ public class Controller {
 //            List<Event> events = dataBase.getAllEvents();
             //WindowToEditEvent windowToEditEvent = new WindowToEditEvent(events.get(idEvent));
         // na sztywno wydarzenie do edytowania, powinno odczytywac z bazy danych do listy i potem z listy czytamy wydarzenie
-            Event event = new Event(2, "NIEDZIELA", 8, 20, "ZMYWANIE NACZYN");
-            WindowToEditEvent windowToEditEvent = new WindowToEditEvent(event);
+            //Event event = new Event(2, "NIEDZIELA", 8, 20, "ZMYWANIE NACZYN");
+            WindowToEditEvent windowToEditEvent = null;
+            try {
+
+				windowToEditEvent = new WindowToEditEvent(dataBase.getEvent(idEvent));
+			} catch (SQLException exe) {
+			}
+			
             windowToEditEvent.createUserInput();
             Optional<Event> result = windowToEditEvent.getInputResult();
 
             result.ifPresent(pair -> {
                 if (!pair.getMessage().isEmpty()) {
+                	
+                    try {
+                    	dataBase.updateEvent(idEvent, result.get());
+                    } catch(SQLException exe) {
+                    	exe.printStackTrace();
+                    }
+                    
                     EventField eventField = new EventField(result.get());
                     Button eventButton = eventField.createButtonEvent();
-
+                    
                     gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
                     mapOfButtons.put(eventField.getEventId(), eventButton);
                 }
@@ -106,6 +120,19 @@ public class Controller {
     public void clickPDFButton() {
         //TODO generowanie do pdf
         System.out.println("kliknięto przycisk PDF");
+    }
+    
+    public void loadEventsFromDatabase() throws SQLException {
+    	List<Event> events = dataBase.getAllEvents();
+    	
+    	for(Event event: events) {
+    		System.out.println(event);
+            EventField eventField = new EventField(event);
+            Button eventButton = eventField.createButtonEvent();
+
+            gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
+            mapOfButtons.put(eventField.getEventId(), eventButton);
+    	}
     }
 
 
