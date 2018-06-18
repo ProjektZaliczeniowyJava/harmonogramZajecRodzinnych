@@ -160,9 +160,9 @@ public class DerbyDataBase implements DataBase {
 				
 	}
 	
-	public void addEvent(Event event) throws SQLException {
+	public int addEvent(Event event) throws SQLException {
 		PreparedStatement myStmt = null;
-
+		int key= 0;
 		try {
 			myStmt = connection.prepareStatement(
 					"INSERT INTO events (id_user, day, hhour, mminute, message)"
@@ -174,17 +174,19 @@ public class DerbyDataBase implements DataBase {
 			myStmt.setInt(3, event.getHour());
 			myStmt.setInt(4, event.getMin());
 			myStmt.setString(5, event.getMessage());
-
 			myStmt.executeUpdate();
 			
+			ResultSet rs = myStmt.getGeneratedKeys();
+			if (rs.next()){
+			    key=rs.getInt(1);
+			}
 		}catch (SQLException e) {
-
-			//System.out.println(e.getMessage());
 
 		}
 		 finally {
 			DBUtils.close(myStmt);
 		}
+		return key;
 	}
 	
 	public void updateEvent(Event event) throws SQLException {
@@ -192,14 +194,14 @@ public class DerbyDataBase implements DataBase {
 
 		try {
 			myStmt = connection.prepareStatement(
-					"update events set id=?, id_user=?, day=?, hhour=?, mminute=?, message=?");
+					"update events set id=?, id_user=?, day=?, hhour=?, mminute=?, message=? where id=?");
 
-			myStmt.setInt(1, event.getId());
-			myStmt.setInt(2, event.getId_user());
-			myStmt.setString(3, event.getDay());
-			myStmt.setInt(4, event.getHour());
-			myStmt.setInt(5, event.getMin());
-			myStmt.setString(6, event.getMessage());
+			myStmt.setInt(1, event.getId_user());
+			myStmt.setString(2, event.getDay());
+			myStmt.setInt(3, event.getHour());
+			myStmt.setInt(4, event.getMin());
+			myStmt.setString(5, event.getMessage());
+			myStmt.setInt(6, event.getId());
 			myStmt.execute("SET NAMES 'utf8'");
 
 			myStmt.executeUpdate();

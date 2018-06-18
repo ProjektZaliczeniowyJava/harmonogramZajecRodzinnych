@@ -53,21 +53,22 @@ public class Controller {
         WindowToCreateEvent windowToCreateEvent = new WindowToCreateEvent();
         windowToCreateEvent.createUserInput();
         Optional<Event> result = windowToCreateEvent.getInputResult();
-
+        
         result.ifPresent(pair -> {
             if (!pair.getMessage().isEmpty()) {
-                EventField eventField = new EventField(result.get());
-                Button eventButton = eventField.createButtonEvent();
-                gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
-                mapOfButtons.put(eventField.getEventId(), eventButton);
-                
+            	int key = 0;
                 try {
-                	result.get().getMessage();
-                	dataBase.addEvent(result.get());
-                    
+                	//Tu masz key czyli id_wydarzenia
+                	key = dataBase.addEvent(result.get());
                 } catch(SQLException e) {
 
                 }
+                
+                EventField eventField = new EventField(result.get());
+                Button eventButton = eventField.createButtonEvent();
+                gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
+                //zmieniałem na key chyba o to chodziło
+                mapOfButtons.put(key, eventButton);    
             }
         });
 
