@@ -1,14 +1,14 @@
 package sample;
 
-public class ButtonObserver implements Observer{
-    private static final ButtonObserver instance = new ButtonObserver();
+public class ButtonCreationObserver implements Observer{
+    private static final ButtonCreationObserver instance = new ButtonCreationObserver();
 
     private Controller controller;
 
-    private ButtonObserver() {
+    private ButtonCreationObserver() {
     }
 
-    public static ButtonObserver getInstance() {
+    public static ButtonCreationObserver getInstance() {
         return instance;
     }
 

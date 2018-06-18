@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-//TODO jakoś trzeba wczytać do formularze dane o wydarzeniu i dodać opcje usunięcia-> metoda skojarzona
-// wszystko połączyc z baza danych i usunięciem przycisku
 public class WindowToEditEvent {
     private Event event;
     private Optional<Event> result;
@@ -36,8 +34,11 @@ public class WindowToEditEvent {
         Label person = new Label("Osoba");
         Label day = new Label("Dzien");
         Label hour = new Label("Godzina");
+
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("ZMIEŃ");
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("USUŃ TO WYDARZENIE");
 
         ObservableList<String> personList =
                 FXCollections.observableArrayList("1", "2", "3");
@@ -59,25 +60,13 @@ public class WindowToEditEvent {
         ComboBox<String> minuteOption = new ComboBox<>(minuteList);
         minuteOption.getSelectionModel().select(Integer.toString(this.event.getMin()));
 
-
         TextField eventInformation = new TextField();
         eventInformation.setPromptText(this.event.getMessage());
-
-        Button deleteButton = new Button();
-        deleteButton.setText("Usuń");
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-            //tutaj wszystko związane z usunięciem bazy
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Kliknięto usuń");
-            }
-        });
 
         GridPane gridpane = new GridPane();
         gridpane.setPadding(new Insets(10));
         gridpane.setHgap(5);
         gridpane.setVgap(5);
-
 
         gridpane.add(eventInformation, 0,0);
         gridpane.add(person, 1,0 );
@@ -87,19 +76,28 @@ public class WindowToEditEvent {
         gridpane.add(hour, 0,2 );
         gridpane.add(hourOption, 1,2 );
         gridpane.add(minuteOption, 2,2 );
-        gridpane.add(deleteButton, 2, 3);
+//        gridpane.add(deleteButton, 2, 3);
 
         dialogPane.setContent(gridpane);
         Platform.runLater(() -> eventInformation.requestFocus());
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.OK) {
-                return new Event(Integer.parseInt(personOption.getValue()),
-                        dayOption.getValue(), Integer.parseInt(hourOption.getValue()), Integer.parseInt(minuteOption.getValue()),eventInformation.getText());
-
+                if(eventInformation.getText().isEmpty()) {
+                    return new Event(Integer.parseInt(personOption.getValue()),
+                            dayOption.getValue(), Integer.parseInt(hourOption.getValue()), Integer.parseInt(minuteOption.getValue()),this.event.getMessage());
+                }
+                else {
+                    return new Event(Integer.parseInt(personOption.getValue()),
+                            dayOption.getValue(), Integer.parseInt(hourOption.getValue()), Integer.parseInt(minuteOption.getValue()),eventInformation.getText());
+                }
+            }
+            else if(dialogButton == ButtonType.CANCEL) {
+                new EventField(this.event).notifyRemovalObserver(this.event.getId());
             }
             return null;
         });
+
         this.result = dialog.showAndWait();
     }
 
