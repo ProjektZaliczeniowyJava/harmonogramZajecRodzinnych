@@ -7,7 +7,7 @@ import java.util.Map;
 public class EventField {
     //TODO id uzytkownika skojarzone z kolorem przycisku
     private Event event;
-    private Observer observer = Observer.getInstance();
+    private ButtonObserver buttonObserver = ButtonObserver.getInstance();
     private static final Map<String, Integer> dayIdMap = new HashMap<>();
     static {
         dayIdMap.put("PONIEDZIAŁEK", 0);
@@ -33,7 +33,7 @@ public class EventField {
     }
 
     public void notifyObserver(int idEvent) {
-        this.observer.update(idEvent);
+        this.buttonObserver.update(idEvent);
     }
 
     public int getDayId() {

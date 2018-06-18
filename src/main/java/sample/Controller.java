@@ -1,5 +1,4 @@
 package sample;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -11,12 +10,12 @@ public class Controller {
     private DataBase dataBase;
     private Button addButton;
     private Button PDFButton;
-    private Observer observer;
+    private ButtonObserver buttonObserver;
 
     public Controller()  {System.out.println("konstruktor");}
     //called when .fxml file is loaded
     public void initialize(){
-        observer = Observer.getInstance();
+        buttonObserver = ButtonObserver.getInstance();
         addToObserver();
         dataBase = new DerbyDataBase();
         try {
@@ -37,7 +36,7 @@ public class Controller {
 
 
     public void addToObserver() {
-        this.observer.addControllerToObserver(this);
+        this.buttonObserver.addControllerToObserver(this);
     }
 
 //    public void addDataBase(DataBase db) {
@@ -84,7 +83,7 @@ public class Controller {
 //        TODO dodac aktualizacje danych w bazie na podstawie nowego event, stare usuwamy?
 //        try {
 //            List<Event> events = dataBase.getAllEvents();
-//            WindowToEditEvent windowToEditEvent = new WindowToEditEvent(events.get(idEvent));
+            //WindowToEditEvent windowToEditEvent = new WindowToEditEvent(events.get(idEvent));
         // na sztywno wydarzenie do edytowania, powinno odczytywac z bazy danych do listy i potem z listy czytamy wydarzenie
             Event event = new Event(2, "NIEDZIELA", 8, 20, "ZMYWANIE NACZYN");
             WindowToEditEvent windowToEditEvent = new WindowToEditEvent(event);
