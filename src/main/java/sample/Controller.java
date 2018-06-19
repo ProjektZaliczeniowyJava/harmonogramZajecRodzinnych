@@ -29,10 +29,16 @@ public class Controller {
     private Button PDFButton;
     private ButtonCreationObserver buttonCreationObserver;
     private ButtonRemovalObserver buttonRemovalObserver;
-
     public ChoiceBox choicebox;
+    private HashMap<Integer, Button> mapOfButtons = new HashMap<>();
 
-    //called when .fxml file is loaded
+    @FXML
+    private GridPane gridPaneDay;
+
+    @FXML
+    private ScrollPane root;
+
+
     public void initialize(){
         buttonCreationObserver = ButtonCreationObserver.getInstance();
         buttonRemovalObserver = ButtonRemovalObserver.getInstance();
@@ -40,7 +46,6 @@ public class Controller {
         dataBase = new DerbyDataBase();
         try {
             dataBase.createConnectionToDerby();
-            //tutaj pobieramy dane z bazy, wypeniamy mapę przycisków, oraz je wyswietlamy na planszy
             loadEventsFromDatabase();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,13 +61,6 @@ public class Controller {
             }
         });
     }
-    @FXML
-    private GridPane gridPaneDay;
-    private HashMap<Integer, Button> mapOfButtons = new HashMap<>();
-
-    @FXML
-    private ScrollPane root;
-
 
     private void addToObserver() {
         this.buttonCreationObserver.addControllerToObserver(this);
@@ -91,7 +89,7 @@ public class Controller {
 
             result.ifPresent(res -> {
                 if (!res.getMessage().isEmpty()) {
-                    int key = 0;
+                    int key;
                     try {
                         key = dataBase.addEvent(result.get());
                         Event event = new Event(key, result.get().getId_user(), result.get().getDay(),
@@ -136,7 +134,7 @@ public class Controller {
         }
     }
 
-    public void loadEventsFromDatabase() throws SQLException {
+    private void loadEventsFromDatabase() throws SQLException {
         List<Event> events = dataBase.getAllEvents();
 
         for(Event event: events) {
@@ -172,7 +170,6 @@ public class Controller {
         WindowToAddUser windowToAddUser = new WindowToAddUser();
         windowToAddUser.createUserInput();
         Optional<User> result = windowToAddUser.getInputResult();
-        //sdfsdfsdfsdfsdf
         result.ifPresent(res -> {
             if (!res.getName().isEmpty()) {
                 try {
