@@ -58,9 +58,9 @@ public class WindowToEditEvent {
         Label hour = new Label("Godzina");
 
         DialogPane dialogPane = dialog.getDialogPane();
-        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL, ButtonType.YES);
         ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("ZMIEŃ");
-        ((Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("USUŃ TO WYDARZENIE");
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.YES)).setText("USUŃ TO WYDARZENIE");
 
         ObservableList<String> personList =
                 FXCollections.observableArrayList(users.keySet());
@@ -114,7 +114,7 @@ public class WindowToEditEvent {
                             dayOption.getValue(), Integer.parseInt(hourOption.getValue()), Integer.parseInt(minuteOption.getValue()),eventInformation.getText());
                 }
             }
-            else if(dialogButton == ButtonType.CANCEL) {
+            else if(dialogButton == ButtonType.YES) {
                 new EventField(this.event).notifyRemovalObserver(this.event.getId());
             }
             return null;
