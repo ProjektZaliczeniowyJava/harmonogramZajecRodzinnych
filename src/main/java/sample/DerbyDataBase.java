@@ -218,7 +218,7 @@ public class DerbyDataBase implements DataBase {
 					+ " values (?, ?, ?, ?, ?)" ,  
 					Statement.RETURN_GENERATED_KEYS);
 
-			myStmt.setInt(1, event.getId_user()-1);
+			myStmt.setInt(1, event.getId_user());
 			myStmt.setString(2, event.getDay());
 			myStmt.setInt(3, event.getHour());
 			myStmt.setInt(4, event.getMin());
@@ -245,7 +245,7 @@ public class DerbyDataBase implements DataBase {
 			myStmt = connection.prepareStatement(
 					"update events set id_user=?, day=?, hhour=?, mminute=?, message=? where id=?");
 
-			myStmt.setInt(1, event.getId_user()-1);
+			myStmt.setInt(1, event.getId_user());
 			myStmt.setString(2, event.getDay());
 			myStmt.setInt(3, event.getHour());
 			myStmt.setInt(4, event.getMin());
