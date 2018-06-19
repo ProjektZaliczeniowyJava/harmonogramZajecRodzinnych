@@ -18,8 +18,8 @@ public class WindowToEditEvent {
     private ArrayList<String> dayNames = new ArrayList<> (Arrays.asList
             ("PONIEDZIAŁEK","WTOREK", "ŚRODA", "CZWARTEK", "PIĄTEK", "SOBOTA", "NIEDZIELA"));
     private ArrayList<String> hours = new ArrayList<>(Arrays.asList
-            ("00", "01", "02", "03", "04","05", "06", "07", "08", "09", "10",
-                    "11", "12","13", "14","15", "16","17", "18", "19", "20", "21", "22", "23"));
+            ("07", "08", "09", "10", "11","12", "13", "14", "15", "16", "17",
+                    "18", "19","20", "21"));
     private ArrayList<String> minutes = new ArrayList<>(Arrays.asList
             ("00", "01", "02", "03", "04","05", "06", "07", "08", "09", "10", "11", "12","13", "14","15", "16","17", "18", "19", "20",
                     "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32","33", "34","35", "36","37", "38", "39", "40",
@@ -75,7 +75,7 @@ public class WindowToEditEvent {
         ObservableList<String> hourList =
                 FXCollections.observableArrayList(hours);
         ComboBox<String> hourOption = new ComboBox<>(hourList);
-        hourOption.getSelectionModel().select(Integer.toString(this.event.getHour()));
+        hourOption.getSelectionModel().select(Integer.toString(this.event.getHour()+7));
 
         ObservableList<String> minuteList =
                 FXCollections.observableArrayList(minutes);
@@ -107,11 +107,11 @@ public class WindowToEditEvent {
             if (dialogButton == ButtonType.OK) {
                 if(eventInformation.getText().isEmpty()) {
                     return new Event(this.getUserId(personOption.getValue()),
-                            dayOption.getValue(), Integer.parseInt(hourOption.getValue()), Integer.parseInt(minuteOption.getValue()),this.event.getMessage());
+                            dayOption.getValue(), Integer.parseInt(hourOption.getValue())-7, Integer.parseInt(minuteOption.getValue()),this.event.getMessage());
                 }
                 else {
                     return new Event(this.getUserId(personOption.getValue()),
-                            dayOption.getValue(), Integer.parseInt(hourOption.getValue()), Integer.parseInt(minuteOption.getValue()),eventInformation.getText());
+                            dayOption.getValue(), Integer.parseInt(hourOption.getValue())-7, Integer.parseInt(minuteOption.getValue()),eventInformation.getText());
                 }
             }
             else if(dialogButton == ButtonType.YES) {
