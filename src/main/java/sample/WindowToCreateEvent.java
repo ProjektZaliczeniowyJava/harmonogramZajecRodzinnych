@@ -5,13 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
+
+import java.util.*;
 
 
 public class WindowToCreateEvent {
     private Optional<Event> result;
+    private List<User> listOfUsers;
+    private Map<String, Integer> users;
     private ArrayList<String> dayNames = new ArrayList<> (Arrays.asList
             ("PONIEDZIAŁEK","WTOREK", "ŚRODA", "CZWARTEK", "PIĄTEK", "SOBOTA", "NIEDZIELA"));
     private ArrayList<String> hours = new ArrayList<>(Arrays.asList
@@ -22,8 +23,19 @@ public class WindowToCreateEvent {
                     "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32","33", "34","35", "36","37", "38", "39", "40",
                     "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52","53", "54","55", "56","57", "58", "59"));
 
-    public WindowToCreateEvent() {
-        this.result = null;
+    public WindowToCreateEvent(List<User> listOfUsers) {
+        this.result = Optional.empty();
+        this.listOfUsers = listOfUsers;
+        this.users = new HashMap<>();
+        this.createMapOfUsers();
+    }
+
+    private void createMapOfUsers() {
+        this.listOfUsers.forEach(e->this.users.put(e.getName(), e.getId()));
+    }
+
+    private int getUserId(String name) {
+        return this.users.get(name);
     }
 
     public void createUserInput() {
@@ -37,7 +49,7 @@ public class WindowToCreateEvent {
 
 
         ObservableList<String> personList =
-                FXCollections.observableArrayList("1", "2", "3");
+                FXCollections.observableArrayList(this.users.keySet());
         ComboBox<String> personOption = new ComboBox<>(personList);
         personOption.getSelectionModel().selectFirst();
 
@@ -80,13 +92,13 @@ public class WindowToCreateEvent {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.OK) {
-                return new Event(Integer.parseInt(personOption.getValue()),
+                return new Event(this.getUserId(personOption.getValue()),
                         dayOption.getValue(), Integer.parseInt(hourOption.getValue()), Integer.parseInt(minuteOption.getValue()),eventInformation.getText());
 
             }
             return null;
         });
-        
+
         this.result = dialog.showAndWait();
     }
 
