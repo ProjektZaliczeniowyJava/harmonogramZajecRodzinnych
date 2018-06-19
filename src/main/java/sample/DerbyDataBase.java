@@ -47,17 +47,6 @@ public class DerbyDataBase implements DataBase {
                 + " id_user int, day varchar(20), hhour int, mminute int, message varchar(30))");
     }
 
-    public void addRecordToEventTable(int id, int id_user, String day, int hour, int min, String message) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO "+ this.eventNameTable + " values ("
-                + id + "," +  id_user + ",'" + day + "'," + hour + ", " + min + ", '" + message + "' )");
-    }
-
-    public void addRecordToUserTable(int id, String name) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO "+ this.userNameTable + " values (" + id + ",'" + name + "')");
-    }
-
     public void backUpDatabase()throws SQLException {
         String backUpDirectory ="mybackups/";
         CallableStatement cs = connection.prepareCall("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(?)");
