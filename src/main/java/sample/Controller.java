@@ -19,7 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 
@@ -37,7 +37,7 @@ public class Controller {
     private GridPane gridPaneDay;
 
     @FXML
-    private ScrollPane root;
+    private AnchorPane root;
 
     @FXML
     private GridPane userLabel;

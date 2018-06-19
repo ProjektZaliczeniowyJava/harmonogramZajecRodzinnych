@@ -1,3 +1,21 @@
+.main_window {
+    -fx-font-family: 'Georgia';
+    -fx-background-color: #2e4052;
+}
+
+
+#addButton, #addPersonButton, #choicebox, #PDFButton {
+    -fx-background-color: #ffc857;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+}
+
 TextField {
-    -fx-background-color: blue;
+    -fx-background-color: #bdd9bf;
+
+}
+
+Label {
+    -fx-text-fill: white;
+    
 }
