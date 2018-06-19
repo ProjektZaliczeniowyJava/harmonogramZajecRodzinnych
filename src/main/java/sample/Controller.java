@@ -2,6 +2,7 @@ package sample;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 public class Controller {
     private DataBase dataBase;
@@ -31,13 +33,16 @@ public class Controller {
     private ButtonRemovalObserver buttonRemovalObserver;
     public ChoiceBox choicebox;
     private HashMap<Integer, Button> mapOfButtons = new HashMap<>();
-
+    private int userAmount = 0;
+    private File tempStyleClass;
     @FXML
     private GridPane gridPaneDay;
 
     @FXML
     private ScrollPane root;
 
+    @FXML
+    private GridPane userLabel;
 
     public void initialize(){
         buttonCreationObserver = ButtonCreationObserver.getInstance();
@@ -46,8 +51,10 @@ public class Controller {
         dataBase = new DerbyDataBase();
         try {
             dataBase.createConnectionToDerby();
+            this.tempStyleClass = File.createTempFile("userInfo", ".css");
+            tempStyleClass.deleteOnExit();
             loadEventsFromDatabase();
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
 
@@ -136,13 +143,30 @@ public class Controller {
 
     private void loadEventsFromDatabase() throws SQLException {
         List<Event> events = dataBase.getAllEvents();
-
+        List<User> users = dataBase.getAllUsers();
         for(Event event: events) {
             EventField eventField = new EventField(event);
             Button eventButton = eventField.createButtonEvent();
 
             gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
             mapOfButtons.put(eventField.getEventId(), eventButton);
+        }
+        try {
+
+            try (PrintWriter printWriter = new PrintWriter(tempStyleClass)) {
+                for (User user : users) {
+                    Button button = new Button(user.getName());
+                    String color = user.getColorNumber();
+                    printWriter.println(".temp-style"+userAmount+" { -fx-text-fill: black; }");
+                    printWriter.println(".temp-style"+userAmount+" { -fx-background-color: "+color+" ; }");
+                    button.getStylesheets().add(tempStyleClass.toURI().toString());
+                    button.getStyleClass().add("temp-style"+userAmount);
+                    userLabel.add(button, 0, userAmount++);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -175,7 +199,16 @@ public class Controller {
                 try {
                     dataBase.addUser(result.get());
                     System.out.println(dataBase.getAllUsers());
-                } catch(SQLException e) {
+                    try (PrintWriter printWriter = new PrintWriter(tempStyleClass)) {
+                        Button button = new Button(result.get().getName());
+                        String color = result.get().getColorNumber();
+                        printWriter.println(".temp-style"+userAmount+" { -fx-text-fill: black; }");
+                        printWriter.println(".temp-style"+userAmount+" { -fx-background-color: "+color+" ; }");
+                        button.getStylesheets().add(tempStyleClass.toURI().toString());
+                        button.getStyleClass().add("temp-style"+userAmount);
+                        userLabel.add(button, 0, userAmount++);
+                    }
+                } catch(SQLException | IOException e) {
                     e.printStackTrace();
                 }
             }
