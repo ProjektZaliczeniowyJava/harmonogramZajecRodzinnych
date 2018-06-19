@@ -277,10 +277,10 @@
          </VBox>
       </children>
    </GridPane>
-   <Pane layoutX="100.0" layoutY="600.0" prefHeight="43.0" prefWidth="506.0">
-      <children>
-         <Button layoutX="103.0" layoutY="9.0" mnemonicParsing="false" text="KOPIA ZAPASOWA" />
-         <Button layoutX="282.0" layoutY="9.0" mnemonicParsing="false" text="POWRÓT DO OSTATNIEJ WERSJI" />
-      </children></Pane>
+   <!--<Pane layoutX="100.0" layoutY="600.0" prefHeight="43.0" prefWidth="506.0">-->
+      <!--<children>-->
+         <!--<Button layoutX="103.0" layoutY="9.0" mnemonicParsing="false" text="KOPIA ZAPASOWA" />-->
+         <!--<Button layoutX="282.0" layoutY="9.0" mnemonicParsing="false" text="POWRÓT DO OSTATNIEJ WERSJI" />-->
+      <!--</children></Pane>-->
 
 </AnchorPane>
