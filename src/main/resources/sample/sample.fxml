@@ -15,17 +15,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" styleClass="main_window" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
-      <Pane prefHeight="43.0" prefWidth="600.0">
+      <Pane prefHeight="43.0" prefWidth="600.0" styleClass="title">
          <children>
-            <Text layoutX="271.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tygodniowy harmonogram" />
+            <Text layoutX="271.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TYGODNIOWY HARMONOGRAM" />
          </children>
       </Pane>
-      <Pane layoutX="14.0" layoutY="555.0" prefHeight="31.0" prefWidth="600.0">
+      <Pane layoutX="236.0" layoutY="555.0" prefHeight="31.0" prefWidth="600.0" styleClass="buttons">
          <children>
-            <Button fx:id="addButton" layoutX="31.0" layoutY="3.0" mnemonicParsing="false" onAction="#clickAddButton"  text="DODAJ" />
-            <Button fx:id="PDFButton" layoutX="114.0" layoutY="1.0" mnemonicParsing="false" text="DRUKUJ DO PDF" onAction="#clickPDFButton"/>
+            <Button fx:id="addButton" layoutX="31.0" layoutY="3.0" mnemonicParsing="false" onAction="#clickAddButton" text="DODAJ" />
+            <Button fx:id="PDFButton" layoutX="114.0" layoutY="1.0" mnemonicParsing="false" onAction="#clickPDFButton" text="DRUKUJ DO PDF" />
             <ChoiceBox fx:id="choicebox" layoutX="259.0" layoutY="1.0" prefWidth="150.0" value="style1.css">
                <items>
                <FXCollections fx:factory="observableArrayList">

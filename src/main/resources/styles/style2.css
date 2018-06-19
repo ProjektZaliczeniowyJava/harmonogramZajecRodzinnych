@@ -1,10 +1,6 @@
 .main_window {
-    -fx-font-family: 'Helvetica';
-    -fx-background-color: #f2cfa3;
-}
-
-.title {
-    -fx-font-size: 25px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color: red;
 }
 
 #addButton {
@@ -14,4 +10,3 @@
 TextField {
     -fx-background-color: #ffe4c4;
 }
-
