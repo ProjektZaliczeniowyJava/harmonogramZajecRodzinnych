@@ -24,7 +24,7 @@ public class WindowToCreateEvent {
                     "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52","53", "54","55", "56","57", "58", "59"));
 
     public WindowToCreateEvent(List<User> listOfUsers) {
-        this.result = null;
+        this.result = Optional.empty();
         this.listOfUsers = listOfUsers;
         this.users = new HashMap<>();
         this.createMapOfUsers();
