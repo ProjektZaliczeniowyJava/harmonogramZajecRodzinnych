@@ -164,7 +164,26 @@ public class Controller {
     }
 
     public void clickAddPersonButton() {
-        //todo
+        WindowToAddUser windowToAddUser = new WindowToAddUser();
+        windowToAddUser.createUserInput();
+        Optional<User> result = windowToAddUser.getInputResult();
+
+        /*result.ifPresent(res -> {
+            if (!res.getMessage().isEmpty()) {
+                int key = 0;
+                try {
+                    key = dataBase.addEvent(result.get());
+                    Event event = new Event(key, result.get().getId_user(), result.get().getDay(),
+                            result.get().getHour(),result.get().getMin(), result.get().getMessage());
+                    EventField eventField = new EventField(event);
+                    Button eventButton = eventField.createButtonEvent();
+                    gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
+                    mapOfButtons.put(key, eventButton);
+                } catch(SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });*/
     }
 
 
