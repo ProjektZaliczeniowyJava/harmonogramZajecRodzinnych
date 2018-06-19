@@ -90,7 +90,6 @@ public class WindowToCreateEvent {
     }
 
     public Optional<Event> getInputResult() {
-        //TODO dodać obsługe kiedy null
         return this.result;
     }
 }

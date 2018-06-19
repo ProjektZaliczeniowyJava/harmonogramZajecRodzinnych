@@ -26,7 +26,7 @@ public class Event {
 		this.minute = min;
 		this.message = message;
 	}
-
+ 
 	public int getId() {
 		return id;
 	}

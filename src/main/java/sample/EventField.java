@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EventField {
-    //TODO id uzytkownika skojarzone z kolorem przycisku
     private Event event;
-    private Observer observer = Observer.getInstance();
+    private ButtonCreationObserver buttonCreationObserver = ButtonCreationObserver.getInstance();
+    private ButtonRemovalObserver buttonRemovalObserver = ButtonRemovalObserver.getInstance();
     private static final Map<String, Integer> dayIdMap = new HashMap<>();
     static {
         dayIdMap.put("PONIEDZIAŁEK", 0);
@@ -26,14 +26,17 @@ public class EventField {
     public  Button createButtonEvent() {
         Button button = new Button(this.event.getMessage());
         button.setOnAction((e)-> {
-            this.notifyObserver(this.getEventId());
+            this.notifyCreationObserver(this.getEventId());
         });
-
         return button;
     }
 
-    public void notifyObserver(int idEvent) {
-        this.observer.update(idEvent);
+    private void notifyCreationObserver(int idEvent) {
+        this.buttonCreationObserver.update(idEvent);
+    }
+
+    public void notifyRemovalObserver(int idEvent) {
+        this.buttonRemovalObserver.update(idEvent);
     }
 
     public int getDayId() {

@@ -1,12 +1,3 @@
-.main_window {
-    -fx-font-family: "Abyssinica SIL";
-    -fx-background-color: red;
-}
-
-#addButton {
-    -fx-background-color: #ffa07a;
-}
-
 TextField {
-    -fx-background-color: #ffe4c4;
+    -fx-background-color: blue;
 }
