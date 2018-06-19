@@ -143,75 +143,12 @@
             <children>
                <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
                   <children>
-                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="0:00">
+                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="7:00">
                         <cursor>
                            <Cursor fx:constant="DEFAULT" />
                         </cursor></TextField>
                   </children></VBox>
                <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
-                  <children>
-                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="1:00">
-                        <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                     </TextField>
-                  </children>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="100.0">
-                  <children>
-                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="2:00">
-                        <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                     </TextField>
-                  </children>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="100.0">
-                  <children>
-                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="3:00">
-                        <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                     </TextField>
-                  </children>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="100.0">
-                  <children>
-                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="4:00">
-                        <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                     </TextField>
-                  </children>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="100.0">
-                  <children>
-                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="5:00">
-                        <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                     </TextField>
-                  </children>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="100.0">
-                  <children>
-                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="6:00">
-                        <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                     </TextField>
-                  </children>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="100.0">
-                  <children>
-                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="7:00">
-                        <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                     </TextField>
-                  </children>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="100.0">
                   <children>
                      <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="8:00">
                         <cursor>
@@ -268,6 +205,69 @@
                <VBox prefHeight="200.0" prefWidth="100.0">
                   <children>
                      <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="14:00">
+                        <cursor>
+                           <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                     </TextField>
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="15:00">
+                        <cursor>
+                           <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                     </TextField>
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="16:00">
+                        <cursor>
+                           <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                     </TextField>
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="17:00">
+                        <cursor>
+                           <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                     </TextField>
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="18:00">
+                        <cursor>
+                           <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                     </TextField>
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="19:00">
+                        <cursor>
+                           <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                     </TextField>
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="20:00">
+                        <cursor>
+                           <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                     </TextField>
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <TextField alignment="CENTER" editable="false" mouseTransparent="true" text="21:00">
                         <cursor>
                            <Cursor fx:constant="DEFAULT" />
                         </cursor>
