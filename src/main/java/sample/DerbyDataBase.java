@@ -5,7 +5,6 @@ import java.util.List;
 
 public class DerbyDataBase implements DataBase {
     private Connection connection;
-    private static int backupIndex = 0;
     private String eventNameTable = "Events";
     private String userNameTable = "Users";
 
@@ -45,7 +44,6 @@ public class DerbyDataBase implements DataBase {
                 " (id int primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + " id_user int, day varchar(20), hhour int, mminute int, message varchar(30))");
     }
-
 
     public void addRecordToEventTable(int id, int id_user, String day, int hour, int min, String message) throws SQLException {
         Statement stmt = connection.createStatement();
