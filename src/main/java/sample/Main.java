@@ -20,7 +20,7 @@ public class Main extends Application {
         ScrollPane root = loader.load(getClass().getResource("sample.fxml"));
         root.getStylesheets().add(String.valueOf(getClass().getResource("/styles/style1.css")));
         primaryStage.setTitle("Harmonogram Zajeć Rodzinnych");
-        primaryStage.setScene(new Scene(root, 850, 700));
+        primaryStage.setScene(new Scene(root, 1005, 700));
         primaryStage.setResizable(false);
         primaryStage.show();
 
