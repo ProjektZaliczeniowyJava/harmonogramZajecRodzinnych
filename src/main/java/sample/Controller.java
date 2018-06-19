@@ -163,6 +163,10 @@ public class Controller {
 
     }
 
+    public void clickAddPersonButton() {
+        //todo
+    }
+
 
 
 }

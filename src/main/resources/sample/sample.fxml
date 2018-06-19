@@ -23,7 +23,7 @@
             <Text layoutX="271.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TYGODNIOWY HARMONOGRAM" />
          </children>
       </Pane>
-      <Pane layoutX="236.0" layoutY="555.0" prefHeight="31.0" prefWidth="600.0" styleClass="buttons">
+      <Pane layoutX="257.0" layoutY="555.0" prefHeight="31.0" prefWidth="600.0" styleClass="buttons">
          <children>
             <Button fx:id="addButton" layoutX="31.0" layoutY="3.0" mnemonicParsing="false" onAction="#clickAddButton" text="DODAJ" />
             <Button fx:id="PDFButton" layoutX="114.0" layoutY="1.0" mnemonicParsing="false" onAction="#clickPDFButton" text="DRUKUJ DO PDF" />
@@ -35,6 +35,7 @@
                </FXCollections>
                </items>
             </ChoiceBox>
+            <Button fx:id="addPersonButton" layoutX="426.0" layoutY="4.0" mnemonicParsing="false" onAction="#clickAddPersonButton" text="DODAJ OSOBĘ" />
          </children>
       </Pane>
 
