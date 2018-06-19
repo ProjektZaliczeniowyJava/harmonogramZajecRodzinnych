@@ -35,6 +35,7 @@ public class WindowToCreateEvent {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+
         ObservableList<String> personList =
                 FXCollections.observableArrayList("1", "2", "3");
         ComboBox<String> personOption = new ComboBox<>(personList);
