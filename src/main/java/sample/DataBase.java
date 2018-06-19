@@ -11,10 +11,6 @@ public interface DataBase {
 
     void createEventTable() throws SQLException;
 
-    void addRecordToEventTable(int id, int id_user, String day, int hour, int minute, String message) throws SQLException;
-
-    void addRecordToUserTable(int id, String name) throws SQLException;
-
     void backUpDatabase()throws SQLException;
 
     void restoreDatabase() throws SQLException;
