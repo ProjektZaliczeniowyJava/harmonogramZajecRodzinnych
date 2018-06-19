@@ -11,6 +11,7 @@ public class DerbyDataBase implements DataBase {
     private String userNameTable = "Users";
 
     public void createConnectionToDerby() throws SQLException {
+
         String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;create=true";
         connection = DriverManager.getConnection(dbUrl);
         
