@@ -50,6 +50,10 @@ public class User {
 
 	public String getColor() { return color.toString(); }
 
+	public String getColorNumber() {
+		return  "#" + Integer.toHexString(color.hashCode());
+	}
+
 	public String toString() {
 		return String.format("User [%s %s]", this.id, this.name);
 	}
