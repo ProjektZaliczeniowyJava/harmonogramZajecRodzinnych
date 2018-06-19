@@ -1,4 +1,6 @@
 package sample;
+import javafx.scene.paint.Color;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,7 @@ public class DerbyDataBase implements DataBase {
 
     public void createUserTable() throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("Create table " + this.userNameTable + " (id int primary key, name varchar(30))");
+        stmt.executeUpdate("Create table " + this.userNameTable + " (id int primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), name varchar(30), color varchar(10))");
     }
 
     public void createEventTable() throws SQLException {
@@ -159,8 +161,9 @@ public class DerbyDataBase implements DataBase {
 
 		int id = myRs.getInt("id");
 		String name = myRs.getString("name");
+		String color = myRs.getString("color");
 
-		User tempUser = new User( id, name);
+		User tempUser = new User( id, name, Color.valueOf(color));
 
 		return tempUser;
 	}
@@ -180,7 +183,32 @@ public class DerbyDataBase implements DataBase {
 		}
 				
 	}
-	
+
+	public int addUser(User user) throws SQLException{
+		PreparedStatement myStmt = null;
+		int key = 0;
+        try {
+            myStmt = connection.prepareStatement(
+                    "INSERT INTO users (name, color)"
+                            + " values (?, ?)" ,
+                    Statement.RETURN_GENERATED_KEYS);
+
+            myStmt.setString(1, user.getName());
+            myStmt.setString(2, user.getColor());
+            myStmt.executeUpdate();
+
+            ResultSet rs = myStmt.getGeneratedKeys();
+            if (rs.next()){
+                key=rs.getInt(1);
+            }
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            DBUtils.close(myStmt);
+        }
+        return key;
+	}
+
 	public int addEvent(Event event) throws SQLException {
 		PreparedStatement myStmt = null;
 		int key= 0;
