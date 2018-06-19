@@ -1,17 +1,22 @@
 .main_window {
-    -fx-font-family: 'Helvetica';
-    -fx-background-color: #f2cfa3;
+    -fx-font-family: 'Georgia';
+    -fx-background-color: #eceadf;
 }
 
 .title {
-    -fx-font-size: 25px;
+    -fx-font-size: 35px;
+
+
 }
 
-#addButton {
-    -fx-background-color: #ffa07a;
+#addButton, #addPersonButton, #choicebox, #PDFButton {
+    -fx-background-color: #424a54;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
 }
 
 TextField {
-    -fx-background-color: #ffe4c4;
+    -fx-background-color: #e37262;
 }
+
 

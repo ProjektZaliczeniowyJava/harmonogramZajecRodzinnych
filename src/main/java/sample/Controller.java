@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -60,7 +61,7 @@ public class Controller {
     private HashMap<Integer, Button> mapOfButtons = new HashMap<>();
 
     @FXML
-    private AnchorPane root;
+    private ScrollPane root;
 
 
     private void addToObserver() {
