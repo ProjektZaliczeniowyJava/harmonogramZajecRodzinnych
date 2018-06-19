@@ -30,9 +30,6 @@ public class User {
 		this.color = color;
 	}
 
-	public String getColorNumber() {
-		return  "#" + Integer.toHexString(color.hashCode());
-	}
 	public int getId() {
 		return id;
 	}
