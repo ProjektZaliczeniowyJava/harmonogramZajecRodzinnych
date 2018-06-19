@@ -33,7 +33,6 @@ public class Controller {
         dataBase = new DerbyDataBase();
         try {
             dataBase.createConnectionToDerby();
-            //tutaj pobieramy dane z bazy, wypeniamy mapę przycisków, oraz je wyswietlamy na planszy
             loadEventsFromDatabase();
         } catch (SQLException e) {
             e.printStackTrace();
