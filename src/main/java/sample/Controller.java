@@ -2,6 +2,7 @@ package sample;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.layout.*;
 
 public class Controller {
@@ -31,7 +35,12 @@ public class Controller {
     private Button PDFButton;
     private ButtonCreationObserver buttonCreationObserver;
     private ButtonRemovalObserver buttonRemovalObserver;
-
+    public ChoiceBox choicebox;
+    private HashMap<Integer, Button> mapOfButtons = new HashMap<>();
+    private int userAmount = 0;
+    private File tempStyleClass;
+    @FXML
+    private GridPane gridPaneDay;
     public ArrayList<RowConstraints> rowsconstraints = new ArrayList<>();
     public ArrayList<VBox> vboxes = new ArrayList<>();
 
@@ -40,6 +49,8 @@ public class Controller {
     @FXML
     private VBox vbox0, vbox1, vbox2, vbox3, vbox4, vbox5, vbox6, vbox7, vbox8, vbox9, vbox10, vbox11, vbox12, vbox13, vbox14;
 
+    @FXML
+    private GridPane userLabel;
     public ChoiceBox choicebox;
 
     //called when .fxml file is loaded
@@ -63,9 +74,10 @@ public class Controller {
         dataBase = new DerbyDataBase();
         try {
             dataBase.createConnectionToDerby();
-            //tutaj pobieramy dane z bazy, wypeniamy mapę przycisków, oraz je wyswietlamy na planszy
+            this.tempStyleClass = File.createTempFile("userInfo", ".css");
+            tempStyleClass.deleteOnExit();
             loadEventsFromDatabase();
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
 
@@ -204,7 +216,7 @@ public class Controller {
 
     public void loadEventsFromDatabase() throws SQLException {
         List<Event> events = dataBase.getAllEvents();
-
+        List<User> users = dataBase.getAllUsers();
         for(Event event: events) {
             EventField eventField = new EventField(event);
             Button eventButton = eventField.createButtonEvent();
@@ -235,6 +247,23 @@ public class Controller {
 
             node_result.getChildren().add(eventButton);
             mapOfButtons.put(eventField.getEventId(), eventButton);
+        }
+        try {
+
+            try (PrintWriter printWriter = new PrintWriter(tempStyleClass)) {
+                for (User user : users) {
+                    Button button = new Button(user.getName());
+                    String color = user.getColorNumber();
+                    printWriter.println(".temp-style"+userAmount+" { -fx-text-fill: black; }");
+                    printWriter.println(".temp-style"+userAmount+" { -fx-background-color: "+color+" ; }");
+                    button.getStylesheets().add(tempStyleClass.toURI().toString());
+                    button.getStyleClass().add("temp-style"+userAmount);
+                    userLabel.add(button, 0, userAmount++);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -268,7 +297,16 @@ public class Controller {
                 try {
                     dataBase.addUser(result.get());
                     System.out.println(dataBase.getAllUsers());
-                } catch(SQLException e) {
+                    try (PrintWriter printWriter = new PrintWriter(tempStyleClass)) {
+                        Button button = new Button(result.get().getName());
+                        String color = result.get().getColorNumber();
+                        printWriter.println(".temp-style"+userAmount+" { -fx-text-fill: black; }");
+                        printWriter.println(".temp-style"+userAmount+" { -fx-background-color: "+color+" ; }");
+                        button.getStylesheets().add(tempStyleClass.toURI().toString());
+                        button.getStyleClass().add("temp-style"+userAmount);
+                        userLabel.add(button, 0, userAmount++);
+                    }
+                } catch(SQLException | IOException e) {
                     e.printStackTrace();
                 }
             }

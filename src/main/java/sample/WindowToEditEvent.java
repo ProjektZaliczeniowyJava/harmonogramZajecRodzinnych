@@ -56,10 +56,13 @@ public class WindowToEditEvent {
         Label person = new Label("Osoba");
         Label day = new Label("Dzien");
         Label hour = new Label("Godzina");
+        class Przycisk {
 
+        }
         DialogPane dialogPane = dialog.getDialogPane();
-        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL, ButtonType.YES);
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.YES, ButtonType.CANCEL);
         ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("ZMIEŃ");
+
         ((Button) dialog.getDialogPane().lookupButton(ButtonType.YES)).setText("USUŃ TO WYDARZENIE");
 
         ObservableList<String> personList =
@@ -98,7 +101,6 @@ public class WindowToEditEvent {
         gridpane.add(hour, 0,2 );
         gridpane.add(hourOption, 1,2 );
         gridpane.add(minuteOption, 2,2 );
-//        gridpane.add(deleteButton, 2, 3);
 
         dialogPane.setContent(gridpane);
         Platform.runLater(() -> eventInformation.requestFocus());
