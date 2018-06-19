@@ -36,4 +36,6 @@ public interface DataBase {
     void deleteEvent(int id) throws SQLException;
 
     int addUser(User user) throws SQLException;
+
+    User getUser(int id) throws SQLException;
 }

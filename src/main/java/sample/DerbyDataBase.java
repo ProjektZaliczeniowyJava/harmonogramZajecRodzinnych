@@ -259,4 +259,28 @@ public class DerbyDataBase implements DataBase {
 		}
 
 	}
+
+	public User getUser(int id) throws SQLException {
+		User tempUser = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+
+		try {
+			myStmt = connection.prepareStatement(
+					"select * from users where id=?" ,
+					Statement.RETURN_GENERATED_KEYS);
+
+			myStmt.setInt(1, id);
+
+			myRs = myStmt.executeQuery();
+
+			while (myRs.next()) {
+				tempUser = convertRowToUser(myRs);
+			}
+
+		} finally {
+			DBUtils.close(myStmt, myRs);
+		}
+		return tempUser;
+	}
 }
