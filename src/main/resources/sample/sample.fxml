@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="1000.0" styleClass="main_window" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="1000.0" styleClass="main_window" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
 
       <Pane prefHeight="43.0" prefWidth="600.0" styleClass="title">
@@ -23,7 +23,7 @@
             <Text layoutX="271.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TYGODNIOWY HARMONOGRAM" />
          </children>
       </Pane>
-      <Pane layoutX="257.0" layoutY="555.0" prefHeight="31.0" prefWidth="600.0" styleClass="buttons">
+      <Pane layoutX="121.0" layoutY="555.0" prefHeight="31.0" prefWidth="600.0" styleClass="buttons">
          <children>
             <Button fx:id="addButton" layoutX="31.0" layoutY="3.0" mnemonicParsing="false" onAction="#clickAddButton" text="DODAJ" />
             <Button fx:id="PDFButton" layoutX="114.0" layoutY="1.0" mnemonicParsing="false" onAction="#clickPDFButton" text="DRUKUJ DO PDF" />
@@ -35,7 +35,7 @@
                </FXCollections>
                </items>
             </ChoiceBox>
-            <Button fx:id="addPersonButton" layoutX="426.0" layoutY="4.0" mnemonicParsing="false" onAction="#clickAddPersonButton" text="DODAJ OSOBĘ" />
+
          </children>
       </Pane>
 
@@ -277,5 +277,10 @@
          </VBox>
       </children>
    </GridPane>
+   <Pane layoutX="100.0" layoutY="600.0" prefHeight="43.0" prefWidth="506.0">
+      <children>
+         <Button layoutX="103.0" layoutY="9.0" mnemonicParsing="false" text="KOPIA ZAPASOWA" />
+         <Button layoutX="282.0" layoutY="9.0" mnemonicParsing="false" text="POWRÓT DO OSTATNIEJ WERSJI" />
+      </children></Pane>
 
 </AnchorPane>
