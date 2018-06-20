@@ -32,7 +32,6 @@ public class Controller {
     public ChoiceBox choicebox;
     private HashMap<Integer, Button> mapOfButtons = new HashMap<>();
     private int userAmount = 0;
-    private File tempStyleClass;
     @FXML
     private GridPane gridPaneDay;
 
@@ -49,10 +48,8 @@ public class Controller {
         dataBase = new DerbyDataBase();
         try {
             dataBase.createConnectionToDerby();
-            this.tempStyleClass = File.createTempFile("userInfo", ".css");
-            tempStyleClass.deleteOnExit();
             loadEventsFromDatabase();
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -159,23 +156,15 @@ public class Controller {
             gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
             mapOfButtons.put(eventField.getEventId(), eventButton);
         }
-        try {
 
-            try (PrintWriter printWriter = new PrintWriter(tempStyleClass)) {
-                for (User user : users) {
-                    Button button = new Button(user.getName());
-                    String color = user.getColorNumber();
-                    printWriter.println(".temp-style"+userAmount+" { -fx-text-fill: black; }");
-                    printWriter.println(".temp-style"+userAmount+" { -fx-background-color: "+color+" ; }");
-                    button.getStylesheets().add(tempStyleClass.toURI().toString());
-                    button.getStyleClass().add("temp-style"+userAmount);
-                    userLabel.add(button, 0, userAmount++);
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (User user : users) {
+            Button button = new Button(user.getName());
+            String color = user.getColorNumber();
+            button.setStyle(" -fx-text-fill: black; -fx-background-color: "+color);
+            userLabel.add(button, 0, userAmount++);
         }
+
+
     }
 
     public void clickPDFButton() {
