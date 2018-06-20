@@ -1,9 +1,10 @@
-package sample;
+package sample.dialogs;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import sample.utilities.User;
 
 import java.util.Optional;
 

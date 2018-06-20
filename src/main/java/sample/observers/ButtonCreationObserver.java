@@ -1,6 +1,8 @@
-package sample;
+package sample.observers;
 
-public class ButtonCreationObserver implements Observer{
+import sample.controller.Controller;
+
+public class ButtonCreationObserver implements Observer {
     private static final ButtonCreationObserver instance = new ButtonCreationObserver();
 
     private Controller controller;

@@ -1,4 +1,7 @@
-package sample;
+package sample.database;
+
+import sample.utilities.Event;
+import sample.utilities.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
