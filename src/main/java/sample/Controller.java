@@ -197,16 +197,11 @@ public class Controller {
                 try {
                     dataBase.addUser(result.get());
                     System.out.println(dataBase.getAllUsers());
-                    try (PrintWriter printWriter = new PrintWriter(tempStyleClass)) {
-                        Button button = new Button(result.get().getName());
-                        String color = result.get().getColorNumber();
-                        printWriter.println(".temp-style"+userAmount+" { -fx-text-fill: black; }");
-                        printWriter.println(".temp-style"+userAmount+" { -fx-background-color: "+color+" ; }");
-                        button.getStylesheets().add(tempStyleClass.toURI().toString());
-                        button.getStyleClass().add("temp-style"+userAmount);
-                        userLabel.add(button, 0, userAmount++);
-                    }
-                } catch(SQLException | IOException e) {
+                    Button button = new Button(result.get().getName());
+                    String color = result.get().getColorNumber();
+                    button.setStyle(" -fx-text-fill: black; -fx-background-color: "+color);
+                    userLabel.add(button, 0, userAmount++);
+                } catch(SQLException e) {
                     e.printStackTrace();
                 }
             }
