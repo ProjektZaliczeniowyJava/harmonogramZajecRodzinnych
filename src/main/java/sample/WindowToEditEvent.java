@@ -55,13 +55,14 @@ public class WindowToEditEvent {
         Dialog<Event> dialog = new Dialog<>();
         dialog.setTitle("Edytuj wydarzenie ");
         Label person = new Label("Osoba");
+        Label min = new Label("Minuty");
         Label day = new Label("Dzien");
         Label hour = new Label("Godzina");
 
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL, ButtonType.YES);
         ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("ZMIEŃ");
-        ((Button) dialog.getDialogPane().lookupButton(ButtonType.YES)).setText("USUŃ TO WYDARZENIE");
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.YES)).setText("USUŃ");
 
         ObservableList<String> personList =
                 FXCollections.observableArrayList(users.keySet());
@@ -91,14 +92,16 @@ public class WindowToEditEvent {
         gridpane.setHgap(5);
         gridpane.setVgap(5);
 
-        gridpane.add(eventInformation, 0,0);
-        gridpane.add(person, 1,0 );
-        gridpane.add(personOption, 2,0 );
-        gridpane.add(day, 0,1 );
-        gridpane.add(dayOption, 1,1 );
-        gridpane.add(hour, 0,2 );
-        gridpane.add(hourOption, 1,2 );
-        gridpane.add(minuteOption, 2,2 );
+        gridpane.add(eventInformation, 0,0,3,1);
+        gridpane.add(person, 0,1 );
+        gridpane.add(personOption, 1,1 );
+        gridpane.add(day, 0,2 );
+        gridpane.add(dayOption, 1,2 );
+        gridpane.add(hour, 0,3 );
+        gridpane.add(hourOption, 1,3 );
+        gridpane.add(min, 0,4 );
+        gridpane.add(minuteOption, 1,4 );
+
 //        gridpane.add(deleteButton, 2, 3);
 
         dialogPane.setContent(gridpane);

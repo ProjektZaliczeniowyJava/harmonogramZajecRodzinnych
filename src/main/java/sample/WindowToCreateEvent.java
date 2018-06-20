@@ -42,6 +42,7 @@ public class WindowToCreateEvent {
     public void createUserInput() {
         Dialog<Event> dialog = new Dialog<>();
         dialog.setTitle("Dodaj wydarzenie ");
+        Label min = new Label("Minuty");
         Label person = new Label("Osoba");
         Label day = new Label("Dzien");
         Label hour = new Label("Godzina");
@@ -78,15 +79,15 @@ public class WindowToCreateEvent {
         gridpane.setHgap(5);
         gridpane.setVgap(5);
 
-
-        gridpane.add(eventInformation, 0,0);
-        gridpane.add(person, 1,0 );
-        gridpane.add(personOption, 2,0 );
-        gridpane.add(day, 0,1 );
-        gridpane.add(dayOption, 1,1 );
-        gridpane.add(hour, 0,2 );
-        gridpane.add(hourOption, 1,2 );
-        gridpane.add(minuteOption, 2,2 );
+        gridpane.add(eventInformation, 0,0,3,1);
+        gridpane.add(person, 0,1 );
+        gridpane.add(personOption, 1,1 );
+        gridpane.add(day, 0,2 );
+        gridpane.add(dayOption, 1,2 );
+        gridpane.add(hour, 0,3 );
+        gridpane.add(hourOption, 1,3 );
+        gridpane.add(min, 0,4 );
+        gridpane.add(minuteOption, 1,4 );
 
         dialogPane.setContent(gridpane);
         Platform.runLater(() -> eventInformation.requestFocus());
