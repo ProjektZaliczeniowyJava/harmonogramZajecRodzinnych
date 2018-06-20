@@ -3,8 +3,8 @@
     -fx-background-color: #eceadf;
 }
 
-.title {
-    -fx-font-size: 35px;
+#userLabel {
+    -fx-font-color: #424a54;
 }
 
 #addButton, #addPersonButton, #choicebox, #PDFButton {
