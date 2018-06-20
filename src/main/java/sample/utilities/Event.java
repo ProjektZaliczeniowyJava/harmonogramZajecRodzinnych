@@ -1,4 +1,4 @@
-package sample;
+package sample.utilities;
 
 public class Event {
 	private int id;

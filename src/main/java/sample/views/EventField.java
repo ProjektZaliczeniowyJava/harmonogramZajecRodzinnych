@@ -1,6 +1,10 @@
-package sample;
+package sample.views;
 
 import javafx.scene.control.Button;
+import sample.observers.ButtonCreationObserver;
+import sample.observers.ButtonRemovalObserver;
+import sample.utilities.Event;
+
 import java.util.HashMap;
 import java.util.Map;
 

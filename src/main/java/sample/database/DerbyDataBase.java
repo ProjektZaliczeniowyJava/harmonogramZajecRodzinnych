@@ -1,5 +1,7 @@
-package sample;
+package sample.database;
 import javafx.scene.paint.Color;
+import sample.utilities.Event;
+import sample.utilities.User;
 
 import java.sql.*;
 import java.util.ArrayList;

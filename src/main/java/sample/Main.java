@@ -3,11 +3,9 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.awt.*;
+import sample.controller.Controller;
 
 
 public class Main extends Application {

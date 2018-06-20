@@ -1,8 +1,7 @@
-package sample;
+package sample.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,16 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
+import sample.database.DataBase;
+import sample.database.DerbyDataBase;
+import sample.observers.ButtonCreationObserver;
+import sample.observers.ButtonRemovalObserver;
+import sample.utilities.Event;
+import sample.utilities.User;
+import sample.views.EventField;
+import sample.dialogs.WindowToAddUser;
+import sample.dialogs.WindowToCreateEvent;
+import sample.dialogs.WindowToEditEvent;
 
 public class Controller {
     private DataBase dataBase;
