@@ -2,6 +2,8 @@ package sample;
 
 import org.junit.Before;
 import org.junit.Test;
+import sample.utilities.Event;
+import sample.views.EventField;
 
 import static org.junit.Assert.*;
 
