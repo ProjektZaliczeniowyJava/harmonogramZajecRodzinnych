@@ -100,7 +100,10 @@ public class Controller {
                         Event event = new Event(key, result.get().getId_user(), result.get().getDay(),
                                 result.get().getHour(), result.get().getMin(), result.get().getMessage());
                         EventField eventField = new EventField(event);
+                        User user = dataBase.getUser(key);
+                        String color = user.getColorNumber();
                         Button eventButton = eventField.createButtonEvent();
+                        eventButton.setStyle(" -fx-text-fill: black; -fx-background-color: "+color);
                         gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
                         mapOfButtons.put(key, eventButton);
                     } catch (SQLException e) {
@@ -127,6 +130,10 @@ public class Controller {
                         dataBase.updateEvent(idEvent, event);
                         EventField eventField = new EventField(event);
                         Button eventButton = eventField.createButtonEvent();
+                        int key = event.getId_user();
+                        User user = dataBase.getUser(key);
+                        String color = user.getColorNumber();
+                        eventButton.setStyle(" -fx-text-fill: black; -fx-background-color: "+color);
                         gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
                         mapOfButtons.put(idEvent, eventButton);
                     } catch(SQLException e) {
@@ -145,7 +152,10 @@ public class Controller {
         for(Event event: events) {
             EventField eventField = new EventField(event);
             Button eventButton = eventField.createButtonEvent();
-
+            int key = event.getId_user();
+            User user = dataBase.getUser(key);
+            String color = user.getColorNumber();
+            eventButton.setStyle(" -fx-text-fill: black; -fx-background-color: "+color);
             gridPaneDay.add(eventButton, eventField.getDayId(), eventField.getHour());
             mapOfButtons.put(eventField.getEventId(), eventButton);
         }
