@@ -12,9 +12,8 @@ public class DerbyDataBase implements DataBase {
 
     public void createConnectionToDerby() throws SQLException {
 
-        String dbUrl = "jdbc:derby:src/main/resources/sample/dataBase;create=true";
+		String dbUrl = "jdbc:derby:dataBase;create=true";
         connection = DriverManager.getConnection(dbUrl);
-        
         //Drop stara tabele zeby w nowej bylo auto_increment
         //Statement stmt = connection.createStatement();
         //stmt.executeUpdate("Drop Table Events");
